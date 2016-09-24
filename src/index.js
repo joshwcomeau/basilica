@@ -1,9 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Match
+} from 'react-router';
+
 import App from './App';
 import './index.css';
 
-ReactDOM.render(
-  <App />,
+render(
+  <Router>
+    <Match exactly pattern="/" component={App} />
+  </Router>,
   document.getElementById('root')
 );
