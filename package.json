@@ -39,6 +39,7 @@
     "postcss-loader": "0.13.0",
     "promise": "7.1.1",
     "react-dev-utils": "^0.1.1",
+    "react-test-renderer": "^15.3.2",
     "recursive-readdir": "2.0.0",
     "rimraf": "2.5.4",
     "sass-loader": "^4.0.2",
@@ -76,7 +77,7 @@
     ],
     "moduleNameMapper": {
       "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/FileStub.js",
-      "^.+\\.css$": "<rootDir>/config/jest/CSSStub.js"
+      "^.+\\.scss$": "<rootDir>/config/jest/CSSStub.js"
     },
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
