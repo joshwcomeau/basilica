@@ -5,12 +5,11 @@ import {
   Match
 } from 'react-router';
 
-import App from './App';
-import './index.css';
+import Home from './components/Home';
 
 render(
   <Router>
-    <Match exactly pattern="/" component={App} />
+    <Match exactly pattern="/" component={Home} />
   </Router>,
   document.getElementById('root')
 );
