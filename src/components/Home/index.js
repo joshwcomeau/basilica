@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StickyContainer } from 'react-sticky';
 
 import Hero from '../Hero';
-import StickyLogo from '../StickyLogo';
-
+import HeaderContents from '../HeaderContents';
+import HeaderBackdrop from '../HeaderBackdrop';
 import './index.scss';
 
 class Home extends Component {
@@ -11,10 +10,16 @@ class Home extends Component {
     return (
       <div className="home">
         <Hero />
-        <StickyContainer className="main-content">
-          <StickyLogo />
-          <div style={{ height: '4000px' }} />
-        </StickyContainer>
+
+        {/*
+          Header is split into 2 components because their z-index is different.
+          We want the Contents to float above the Hero image, but the backdrop
+          should slide under it.
+        */}
+        <HeaderContents />
+        <HeaderBackdrop />
+
+        <div className="main-content" style={{ height: '4000px' }} />
       </div>
     );
   }

@@ -1,0 +1,19 @@
+@import '../../variables';
+
+.header-backdrop {
+  position: fixed;
+  z-index: 5;
+  height: $header-height;
+  top: 0;
+  left: $main-content-border-size;
+  right: $main-content-border-size;
+  background: $white;
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}

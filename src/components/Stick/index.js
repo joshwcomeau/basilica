@@ -14,9 +14,8 @@ class Stick extends Component {
   }
 
   componentDidMount() {
-    // If the element ref didn't come through, it either means:
-    //  - The component didn't mount properly
-    //  - We're running in a node-like environment
+    // If the element ref didn't come through, it likely means we're
+    // running in a test environment.
     if (!this.elem) {
       return;
     }

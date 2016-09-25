@@ -1,6 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+
+import Stick from '../Stick';
+import Logo from '../Logo';
 import './index.scss';
 import defaultBackgroundImage from '../../images/placeholder-home-hero.jpeg';
 
@@ -13,6 +16,10 @@ const Hero = ({ children, backgroundImage }) => {
       className={classes}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
+      <Stick className="sticky-logo">
+        <Logo />
+      </Stick>
+
       {children}
     </div>
   );

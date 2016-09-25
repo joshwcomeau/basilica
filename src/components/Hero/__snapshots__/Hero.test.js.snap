@@ -6,6 +6,13 @@ exports[`test renders correctly 1`] = `
       "backgroundImage": "url(test-file-stub)"
     }
   }>
-  Your Component Here :)
+  <div
+    className="sticky-logo is-not-stuck"
+    style={undefined}>
+    <h2
+      className="logo">
+      Basilica
+    </h2>
+  </div>
 </div>
 `;

@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.header-contents {
+  position: fixed;
+  z-index: 7;
+  height: $header-height;
+  line-height: $header-height;
+  top: 0;
+  left: $main-content-border-size;
+  right: $main-content-border-size;
+  text-align: right;
+  padding: 0 $main-content-border-size;
+
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}
