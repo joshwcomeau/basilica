@@ -1,12 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-
 import './index.scss';
-import backgroundImage from '../../images/placeholder-home-hero.jpeg';
+import defaultBackgroundImage from '../../images/placeholder-home-hero.jpeg';
 
 
-const Hero = () => {
+const Hero = ({ children, backgroundImage }) => {
   const classes = classNames(['hero']);
 
   return (
@@ -14,17 +13,18 @@ const Hero = () => {
       className={classes}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      Your Component Here :)
+      {children}
     </div>
   );
 };
 
 Hero.propTypes = {
-
+  children: PropTypes.node,
+  backgroundImage: PropTypes.string.isRequired,
 };
 
 Hero.defaultProps = {
-
+  backgroundImage: defaultBackgroundImage,
 };
 
 export default Hero;
