@@ -6,11 +6,12 @@
   height: $header-height;
   line-height: $header-height;
   top: 0;
-  left: $main-content-border-size;
-  right: $main-content-border-size;
+  left: 0;
+  right: 0;
   text-align: right;
-  padding: 0 $main-content-border-size;
-
+  padding: 0 $main-content-border-size * 2;
+  max-width: $max-width;
+  margin: 0 auto;
 
   @media screen and (max-width: $mq-tablet) {
 

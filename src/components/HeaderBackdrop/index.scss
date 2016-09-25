@@ -5,8 +5,10 @@
   z-index: 5;
   height: $header-height;
   top: 0;
-  left: $main-content-border-size;
-  right: $main-content-border-size;
+  left: 0;
+  right: 0;
+  max-width: $max-width;
+  margin: 0 auto;
   background: $white;
 
   @media screen and (max-width: $mq-tablet) {
