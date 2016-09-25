@@ -1,6 +1,14 @@
 exports[`test renders correctly 1`] = `
 <div
   className="home">
-  Homepage!
+  <div
+    className="hero"
+    style={
+      Object {
+        "backgroundImage": "url(test-file-stub)"
+      }
+    }>
+    Your Component Here :)
+  </div>
 </div>
 `;

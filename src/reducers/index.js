@@ -1,3 +1,3 @@
-export default function reducer(state = {}, action) {
+export default function reducer(state = {}) {
   return state;
 }

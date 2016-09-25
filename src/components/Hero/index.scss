@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.hero {
+  position: relative;
+  height: 75vh;
+  background-size: cover;
+  background-position: center center;
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}
