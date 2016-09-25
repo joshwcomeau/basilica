@@ -13,6 +13,7 @@
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
     "react/jsx-filename-extension": 0,
+    "react/prefer-stateless-function": 0,
     "new-cap": 0,
     "arrow-body-style": 0,
     "no-return-assign": 0,
