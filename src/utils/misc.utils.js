@@ -2,6 +2,26 @@ import get from 'lodash.get';
 import curry from 'lodash.curry';
 
 
+/** getElementOffset
+  Returns the distance from the top and left, relative to the document.
+*/
+export const getElementOffset = (elem) => {
+  const box = elem.getBoundingClientRect();
+
+  const { body, documentElement } = document;
+
+  const scrollTop = window.pageYOffset || documentElement.scrollTop || body.scrollTop;
+  const scrollLeft = window.pageXOffset || documentElement.scrollLeft || body.scrollLeft;
+
+  const clientTop = documentElement.clientTop || body.clientTop || 0;
+  const clientLeft = documentElement.clientLeft || body.clientLeft || 0;
+
+  const top = box.top + scrollTop - clientTop;
+  const left = box.left + scrollLeft - clientLeft;
+
+  return { top, left };
+};
+
 /** isMobile
   Returns whether the current device is mobile or not.
 */

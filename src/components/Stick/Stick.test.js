@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import StickyLogo from './index';
+import Stick from './index';
 
 it('renders correctly', () => {
-  const tree = renderer.create(<StickyLogo />).toJSON();
+  const tree = renderer.create(<Stick />).toJSON();
   expect(tree).toMatchSnapshot();
 });
