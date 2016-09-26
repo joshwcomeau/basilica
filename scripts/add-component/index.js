@@ -119,9 +119,11 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import ${ComponentName} from './index';
 
-it('renders correctly', () => {
-  const tree = renderer.create(<${ComponentName} />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('${ComponentName}', () => {
+  it('renders correctly', () => {
+    const tree = renderer.create(<${ComponentName} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });\n`;
 }
 

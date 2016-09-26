@@ -1,4 +1,4 @@
-exports[`test renders correctly 1`] = `
+exports[`Stick renders correctly 1`] = `
 <div
   className=" is-not-stuck"
   style={undefined} />

@@ -3,7 +3,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Stick from './index';
 
-it('renders correctly', () => {
-  const tree = renderer.create(<Stick />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('Stick', () => {
+  it('renders correctly', () => {
+    const tree = renderer.create(<Stick />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

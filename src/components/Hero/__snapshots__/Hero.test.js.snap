@@ -1,4 +1,4 @@
-exports[`test renders correctly 1`] = `
+exports[`Hero renders correctly 1`] = `
 <div
   className="hero"
   style={
