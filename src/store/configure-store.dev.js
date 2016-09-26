@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import Perf from 'react-addons-perf';
 
 import reducer from '../reducers';
-import { fetchCollection } from '../sagas/shopify.saga';
+import { initializeShopify } from '../sagas/shopify.saga';
 import DevTools from '../components/DevTools';
 
 
@@ -21,7 +21,7 @@ export default function configureStore() {
     )
   );
 
-  sagaMiddleware.run(fetchCollection);
+  sagaMiddleware.run(initializeShopify);
 
   // Allow direct access to the store, for debugging/testing
   window.store = store;

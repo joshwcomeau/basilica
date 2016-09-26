@@ -1,18 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { collectionRequest } from '../../actions';
+import { productsRequest } from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
-import shopifyCollectionIds from '../../data/shopify-collection-ids';
 import './index.scss';
 
 class Home extends Component {
   componentWillMount() {
+    const { city } = this.props;
     // We want to request our list of products from Shopify ASAP.
-    const collectionId = shopifyCollectionIds[this.props.city];
-    this.props.collectionRequest({ collectionId });
+    this.props.productsRequest({ city });
   }
 
   render() {
@@ -36,7 +35,7 @@ class Home extends Component {
 
 Home.propTypes = {
   city: PropTypes.oneOf(['montreal']),
-  collectionRequest: PropTypes.func,
+  productsRequest: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -44,4 +43,4 @@ const mapStateToProps = state => ({
 });
 
 export { Home };
-export default connect(mapStateToProps, { collectionRequest })(Home);
+export default connect(mapStateToProps, { productsRequest })(Home);
