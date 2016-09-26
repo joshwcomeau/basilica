@@ -1,5 +1,4 @@
 import ShopifyBuy from 'shopify-buy';
-import shopifyCollectionIds from '../data/shopify-collection-ids';
 
 
 let cart;
@@ -85,24 +84,4 @@ export const getCart = () => {
         reject
       );
   });
-};
-
-/** fetchProductsInCity
-  Fetch all products in the shopify store that match a given city.
-
-  @param {city} string
-  @returns {[Object]}
-*/
-export const fetchProductsInCity = (city) => {
-  // We want to fetch all of the products for our selected city.
-  // In Shopify, each City is its own collection.
-  // The mapping between collectionId and city name is stored in a data file.
-  const collectionId = shopifyCollectionIds[city];
-
-  return client.fetchQueryProducts({ collection_id: collectionId })
-    .then((products) => {
-      // The Shopify SDK returns wayyy more info than we actually need.
-      // Let's simplify it, to reduce its impact on system resources.
-      return products;
-    });
 };
