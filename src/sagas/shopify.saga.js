@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { takeEvery } from 'redux-saga';
 import { take, call, put, select } from 'redux-saga/effects';
 import ShopifyBuy from 'shopify-buy';
@@ -14,7 +15,7 @@ const savedCartIdKey = 'basilica-saved-cart-id';
 
 const client = ShopifyBuy.buildClient({
   apiKey: 'dac0c691a19ce7408bfb4f866e813ea5',
-  myShopifyDomain: 'basilica-plans',
+  domain: 'basilica-plans.myshopify.com/',
   appId: '6',
 });
 
@@ -27,13 +28,11 @@ export function* fetchCollection() {
       const savedCartId = localStorage.getItem(savedCartIdKey);
 
       if (savedCartId) {
-        shopifyCart = call(client.fetchCart, savedCartId);
+        shopifyCart = yield call(client.fetchCart.bind(client), savedCartId);
       } else {
-        shopifyCart = call(client.createCart);
+        shopifyCart = yield call(client.createCart.bind(client));
         localStorage.setItem(savedCartIdKey, shopifyCart.id);
       }
     }
-
-    console.log('GOt cart!', shopifyCart);
   }
 }

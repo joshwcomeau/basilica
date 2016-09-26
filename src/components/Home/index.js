@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { initializeShopify } from '../../actions';
+import { collectionRequest } from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
+import shopifyCollectionIds from '../../data/shopify-collection-ids';
 import './index.scss';
 
 class Home extends Component {
   componentWillMount() {
     // We want to request our list of products from Shopify ASAP.
-    this.props.initializeShopify();
+    const collectionId = shopifyCollectionIds[this.props.city];
+    this.props.collectionRequest({ collectionId });
   }
 
   render() {
@@ -33,9 +35,13 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  location: PropTypes.object,
-  initializeShopify: PropTypes.func,
+  city: PropTypes.oneOf(['montreal']),
+  collectionRequest: PropTypes.func,
 };
 
-export default connect(null, { initializeShopify })(Home);
+const mapStateToProps = state => ({
+  city: state.city,
+});
+
+export { Home };
+export default connect(mapStateToProps, { collectionRequest })(Home);
