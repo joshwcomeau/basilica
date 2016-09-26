@@ -3,6 +3,8 @@ import { takeLatest } from 'redux-saga';
 import { take, call, put, select } from 'redux-saga/effects';
 
 import shopifyClient, { getCart } from '../utils/shopify.utils';
+import { findClosestPoint } from '../utils/geo.utils';
+import planCoordinates from '../data/plan-coordinates';
 import {
   CLICK_MAP,
 } from '../actions';
@@ -17,7 +19,8 @@ export function* initializeShopify() {
 }
 
 function* findAndFetchProducts({ lat, lng }) {
-
+  const city = yield select(state => state.city);
+  const coordsInCity = planCoordinates[city];
 }
 
 export function* watchClickMap() {
