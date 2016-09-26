@@ -71,8 +71,6 @@ class Stick extends Component {
 Stick.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  at: PropTypes.number,
-  until: PropTypes.number,
   // eslint-disable-next-line react/forbid-prop-types
   stuckStyle: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types

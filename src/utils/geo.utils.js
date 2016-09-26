@@ -1,5 +1,6 @@
 import { getQueryParams } from './misc.utils';
 
+// eslint-disable-next-line import/prefer-default-export
 export const getDefaultCity = () => {
   // The default city can be set in 1 of 2 ways:
   //   - The URL can be set with a query param
