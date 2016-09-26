@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { initializeShopify } from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
@@ -6,6 +8,11 @@ import HeaderBackdrop from '../HeaderBackdrop';
 import './index.scss';
 
 class Home extends Component {
+  componentWillMount() {
+    // We want to request our list of products from Shopify ASAP.
+    this.props.initializeShopify();
+  }
+
   render() {
     return (
       <div className="home">
@@ -25,4 +32,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  location: PropTypes.object,
+  initializeShopify: PropTypes.func,
+};
+
+export default connect(null, { initializeShopify })(Home);
