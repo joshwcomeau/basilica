@@ -5,7 +5,7 @@ import { Home } from './index';
 
 it('renders correctly', () => {
   const tree = renderer.create(
-    <Home collectionRequest={() => {}} />
+    <Home initializeShopify={() => {}} />
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

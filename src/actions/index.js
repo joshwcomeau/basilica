@@ -37,6 +37,10 @@ export const clickMap = ({ lat, lng }) => ({
   lng,
 });
 
+export const initializeShopify = () => ({
+  type: INITIALIZE_SHOPIFY,
+});
+
 export const loadCart = () => ({
   type: LOAD_CART,
 });

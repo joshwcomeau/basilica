@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { productsRequest } from '../../actions';
+import { initializeShopify } from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
@@ -9,9 +9,7 @@ import './index.scss';
 
 class Home extends Component {
   componentWillMount() {
-    const { city } = this.props;
-    // We want to request our list of products from Shopify ASAP.
-    this.props.productsRequest({ city });
+    this.props.initializeShopify();
   }
 
   render() {
@@ -34,13 +32,10 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  city: PropTypes.oneOf(['montreal']),
-  productsRequest: PropTypes.func,
+  initializeShopify: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-  city: state.city,
-});
+const mapStateToProps = () => ({});
 
 export { Home };
-export default connect(mapStateToProps, { productsRequest })(Home);
+export default connect(mapStateToProps, { initializeShopify })(Home);

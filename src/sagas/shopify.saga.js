@@ -1,33 +1,25 @@
-/* eslint-disable */
-import { takeEvery } from 'redux-saga';
+/* eslint-disable no-unused-vars */
+import { takeLatest } from 'redux-saga';
 import { take, call, put, select } from 'redux-saga/effects';
 
-import shopifyClient, { getCart, fetchProductsInCity } from '../utils/shopify.utils';
+import shopifyClient, { getCart } from '../utils/shopify.utils';
 import {
-  PRODUCTS_REQUEST,
-  productsSuccess,
-  productsFailure,
+  CLICK_MAP,
 } from '../actions';
 
 
+// eslint-disable-next-line import/prefer-default-export
 export function* initializeShopify() {
-  while (true) {
-    const { city } = yield take(PRODUCTS_REQUEST);
+  yield call(getCart);
 
+  // TODO: If a previously-persisted cart was retrieved, update the redux
+  // store with the cart items.
+}
 
-    // Get (or create, if nonexistent) our shopify cart
-    const cart = yield call(getCart);
+function* findAndFetchProducts({ lat, lng }) {
 
-    try {
-      const products = yield call(
-        fetchProductsInCity,
-        city
-      );
-      console.log(products, cart);
+}
 
-      yield put(productsSuccess({ products }));
-    } catch (error) {
-      yield put(productsFailure({ error }));
-    }
-  }
+export function* watchClickMap() {
+  yield* takeLatest(CLICK_MAP, findAndFetchProducts);
 }
