@@ -31,11 +31,13 @@ export const changeCity = ({ city }) => ({
   city,
 });
 
-export const clickMap = ({ lat, lng }) => ({
-  type: CLICK_MAP,
-  lat,
-  lng,
-});
+export const clickMap = ({ lat, lng }) => {
+  return {
+    type: CLICK_MAP,
+    lat,
+    lng,
+  };
+};
 
 export const initializeShopify = () => ({
   type: INITIALIZE_SHOPIFY,

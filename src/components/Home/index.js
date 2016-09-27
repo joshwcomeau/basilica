@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { initializeShopify } from '../../actions';
+import { initializeShopify, clickMap } from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
@@ -17,7 +17,7 @@ class Home extends Component {
   }
 
   render() {
-    const { city } = this.props;
+    const { city, markerCoords, clickMap } = this.props;
 
     return (
       <div className="home">
@@ -33,7 +33,11 @@ class Home extends Component {
 
         <Editorial />
 
-        <Map {...mapboxCitySettings[city]} />
+        <Map
+          onClick={clickMap}
+          markerCoords={markerCoords}
+          {...mapboxCitySettings[city]}
+        />
 
         <ProductsList />
       </div>
@@ -42,13 +46,22 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  initializeShopify: PropTypes.func,
   city: PropTypes.oneOf(['montreal']),
+  markerCoords: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }),
+  clickMap: PropTypes.func,
+  initializeShopify: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   city: state.city,
+  markerCoords: state.map.marker,
 });
 
 export { Home };
-export default connect(mapStateToProps, { initializeShopify })(Home);
+export default connect(
+  mapStateToProps,
+  { clickMap, initializeShopify }
+)(Home);
