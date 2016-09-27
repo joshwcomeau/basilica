@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import ReactMapboxGl, {
   Layer,
   Feature,
-  ScaleControl,
   ZoomControl,
 } from 'react-mapbox-gl';
 
@@ -14,8 +13,23 @@ import style from '../../data/mapbox-style-streets.json';
 import './index.scss';
 
 
-const Map = ({ center, zoom, minZoom, maxZoom, scrollZoom, bearing }) => {
+const Map = ({
+  centerCoord,
+  markerCoord,
+  zoom,
+  minZoom,
+  maxZoom,
+  scrollZoom,
+  bearing,
+}) => {
   const classes = classNames(['map']);
+
+  // MapBox uses LngLat coordinates, instead of LatLng.
+  // Need to invert the coordinates we pass in.
+  const lngLatCenterCoord = centerCoord.slice().reverse();
+  const lngLatMarkerCoord = markerCoord && markerCoord.slice().reverse();
+
+  const marker = markerCoord && <Feature coordinates={lngLatMarkerCoord} />;
 
   return (
     <div className={classes}>
@@ -29,7 +43,7 @@ const Map = ({ center, zoom, minZoom, maxZoom, scrollZoom, bearing }) => {
           right: 0,
           bottom: 0,
         }}
-        center={center.slice().reverse()}
+        center={lngLatCenterCoord}
         zoom={[zoom]}
         minZoom={minZoom}
         maxZoom={maxZoom}
@@ -38,17 +52,14 @@ const Map = ({ center, zoom, minZoom, maxZoom, scrollZoom, bearing }) => {
         movingMethod="flyTo"
         accessToken={accessToken}
       >
-        <ScaleControl />
         <ZoomControl />
         <Layer
           type="symbol"
           id="marker"
-          layout={{ 'icon-image': 'marker-15' }}
+          layout={{ 'icon-image': 'circle-stroked-15' }}
+          paint={{ 'icon-color': '#FF0000' }}
         >
-          <Feature
-            key="clicked-point"
-            coordinates={[45.4998913, -73.5605561]}
-          />
+          {markerCoord && marker}
         </Layer>
       </ReactMapboxGl>
     </div>
@@ -56,21 +67,20 @@ const Map = ({ center, zoom, minZoom, maxZoom, scrollZoom, bearing }) => {
 };
 
 Map.propTypes = {
-  center: PropTypes.arrayOf(PropTypes.number),
-  zoom: PropTypes.number,
-  minZoom: PropTypes.number,
-  maxZoom: PropTypes.number,
-  scrollZoom: PropTypes.bool,
-  bearing: PropTypes.number,
+  centerCoord: PropTypes.arrayOf(PropTypes.number).isRequired,
+  markerCoord: PropTypes.arrayOf(PropTypes.number),
+  zoom: PropTypes.number.isRequired,
+  minZoom: PropTypes.number.isRequired,
+  maxZoom: PropTypes.number.isRequired,
+  scrollZoom: PropTypes.bool.isRequired,
+  bearing: PropTypes.number.isRequired,
 };
 
 Map.defaultProps = {
-  center: [45.503634, -73.610406],
-  zoom: 11,
-  minZoom: 10,
-  maxZoom: 20,
   scrollZoom: false,
-  bearing: -40,
+  centerCoord: [45.503634, -73.610406],
+  markerCoord: [45.501, -73.611],
+  bearing: 0,
 };
 
 export default Map;

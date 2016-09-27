@@ -6,7 +6,10 @@ import { Home } from './index';
 describe('Home', () => {
   it('renders correctly', () => {
     const tree = renderer.create(
-      <Home initializeShopify={() => {}} />
+      <Home
+        city="montreal"
+        initializeShopify={() => {}}
+      />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });

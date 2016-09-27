@@ -27,5 +27,11 @@ exports[`Home renders correctly 1`] = `
     className="editorial">
     Words and Stuff
   </div>
+  <div
+    className="map" />
+  <div
+    className="products-list">
+    Your Component Here :)
+  </div>
 </div>
 `;

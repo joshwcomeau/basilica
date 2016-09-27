@@ -1,6 +1,4 @@
 exports[`Map renders correctly 1`] = `
 <div
-  className="map">
-  Your Component Here :)
-</div>
+  className="map" />
 `;

@@ -7,7 +7,9 @@ import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
 import Editorial from '../Editorial';
 import Map from '../Map';
+import ProductsList from '../ProductsList';
 import './index.scss';
+import mapboxCitySettings from '../../data/mapbox-city-settings';
 
 class Home extends Component {
   componentWillMount() {
@@ -15,6 +17,8 @@ class Home extends Component {
   }
 
   render() {
+    const { city } = this.props;
+
     return (
       <div className="home">
         <Hero />
@@ -29,7 +33,9 @@ class Home extends Component {
 
         <Editorial />
 
-        <Map />
+        <Map {...mapboxCitySettings[city]} />
+
+        <ProductsList />
       </div>
     );
   }
@@ -37,9 +43,12 @@ class Home extends Component {
 
 Home.propTypes = {
   initializeShopify: PropTypes.func,
+  city: PropTypes.oneOf(['montreal']),
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  city: state.city,
+});
 
 export { Home };
 export default connect(mapStateToProps, { initializeShopify })(Home);

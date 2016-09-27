@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.products-list {
+  position: relative;
+  min-height: 1000px;
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}
