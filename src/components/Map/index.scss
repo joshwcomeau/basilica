@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.map {
+  position: relative;
+  min-height: 400px;
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}

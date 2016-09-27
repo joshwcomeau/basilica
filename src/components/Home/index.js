@@ -6,6 +6,7 @@ import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
 import Editorial from '../Editorial';
+import Map from '../Map';
 import './index.scss';
 
 class Home extends Component {
@@ -27,6 +28,8 @@ class Home extends Component {
         <HeaderBackdrop />
 
         <Editorial />
+
+        <Map />
       </div>
     );
   }
