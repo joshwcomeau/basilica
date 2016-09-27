@@ -24,11 +24,8 @@ exports[`Home renders correctly 1`] = `
   <div
     className="header-backdrop" />
   <div
-    className="main-content"
-    style={
-      Object {
-        "height": "4000px"
-      }
-    } />
+    className="editorial">
+    Words and Stuff
+  </div>
 </div>
 `;

@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.editorial {
+  min-height: 1200px;
+  background: #FFF;
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}

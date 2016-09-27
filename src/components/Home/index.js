@@ -5,6 +5,7 @@ import { initializeShopify } from '../../actions';
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
+import Editorial from '../Editorial';
 import './index.scss';
 
 class Home extends Component {
@@ -25,7 +26,7 @@ class Home extends Component {
         <HeaderContents />
         <HeaderBackdrop />
 
-        <div className="main-content" style={{ height: '4000px' }} />
+        <Editorial />
       </div>
     );
   }
