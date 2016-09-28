@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-import { getDistance, findClosestPoint } from '../geo.utils';
+import { getDistance, findClosestPoints } from '../geo.utils';
+
 
 describe('getDistance', () => {
   it('calculates the distance between two points', () => {
@@ -13,10 +14,10 @@ describe('getDistance', () => {
   });
 });
 
-describe('findClosestPoint', () => {
+describe('findClosestPoints', () => {
   it('finds the single closest match', () => {
     const sourcePoint = [50, 50];
-    const points = {
+    const pointsById = {
       a: [0, 0],
       b: [45, 45],
       c: [51, 51], // This is the closest!
@@ -25,7 +26,7 @@ describe('findClosestPoint', () => {
       f: [50, -50],
     };
 
-    const actualOutput = findClosestPoint({ sourcePoint, points });
+    const actualOutput = findClosestPoints({ sourcePoint, pointsById });
     const expectedOutput = ['c'];
 
     expect(actualOutput).toEqual(expectedOutput);
@@ -33,7 +34,7 @@ describe('findClosestPoint', () => {
 
   it('returns all equal matches', () => {
     const sourcePoint = [50, 50];
-    const points = {
+    const pointsById = {
       a: [0, 0],
       b: [45, 45],
       c: [51, 51],
@@ -41,7 +42,7 @@ describe('findClosestPoint', () => {
       e: [45, 45],
     };
 
-    const actualOutput = findClosestPoint({ sourcePoint, points });
+    const actualOutput = findClosestPoints({ sourcePoint, pointsById });
     const expectedOutput = ['c', 'd'];
 
     expect(actualOutput).toEqual(expectedOutput);

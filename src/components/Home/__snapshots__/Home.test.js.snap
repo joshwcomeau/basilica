@@ -28,7 +28,19 @@ exports[`Home renders correctly 1`] = `
     Words and Stuff
   </div>
   <div
-    className="map" />
+    className="map">
+    <div
+      className="zoom-control">
+      <button
+        onClick={undefined}>
+        +
+      </button>
+      <button
+        onClick={false}>
+        -
+      </button>
+    </div>
+  </div>
   <div
     className="products-list">
     Your Component Here :)

@@ -1,4 +1,16 @@
 exports[`Map renders correctly 1`] = `
 <div
-  className="map" />
+  className="map">
+  <div
+    className="zoom-control">
+    <button
+      onClick={undefined}>
+      +
+    </button>
+    <button
+      onClick={false}>
+      -
+    </button>
+  </div>
+</div>
 `;
