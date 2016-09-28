@@ -6,6 +6,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import configureStore from './store';
 
+// eslint-disable-next-line import/no-named-as-default
 import Home from './components/Home';
 import DevTools from './components/DevTools';
 

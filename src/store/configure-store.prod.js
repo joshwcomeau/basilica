@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import reducer from '../reducers';
-import { initializeShopify } from '../sagas/shopify.saga';
+import shopifySaga from '../sagas/shopify.saga';
 
 
 export default function configureStore() {
@@ -14,7 +14,7 @@ export default function configureStore() {
     applyMiddleware(...middlewares)
   );
 
-  sagaMiddleware.run(initializeShopify);
+  sagaMiddleware.run(shopifySaga);
 
   return store;
 }

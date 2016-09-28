@@ -4,9 +4,7 @@ import classNames from 'classnames';
 import ReactMapboxGl, {
   Layer,
   Feature,
-  ZoomControl,
 } from 'react-mapbox-gl';
-
 
 import { accessToken } from '../../data/mapbox-config.json';
 import style from '../../data/mapbox-style-streets.json';
@@ -22,6 +20,9 @@ const Map = ({
   scrollZoom,
   bearing,
   onClick,
+  onMoveEnd,
+  mapZoomIncrease,
+  mapZoomDecrease,
 }) => {
   const classes = classNames(['map']);
 
@@ -33,11 +34,14 @@ const Map = ({
 
   const marker = markerCoords && <Feature coordinates={markerCoordsArray} />;
 
-  // TODO: move Zoom to redux store, so that re-renders dont reset the zoom
-  // level. Could also use component state, but I wanna VCR it :)
+  coords = centerCoords;
 
   return (
     <div className={classes}>
+      <div className="zoom-control">
+        <button onClick={zoom < maxZoom && mapZoomIncrease}>+</button>
+        <button onClick={zoom > minZoom && mapZoomDecrease}>-</button>
+      </div>
       <ReactMapboxGl
         style={style}
         className={classes}
@@ -54,10 +58,11 @@ const Map = ({
         maxZoom={maxZoom}
         scrollZoom={scrollZoom}
         bearing={bearing}
+        movingMethod="easeTo"
         accessToken={accessToken}
         onClick={(map, e) => onClick && onClick(e.lngLat)}
+        onMoveEnd={map => onMoveEnd && onMoveEnd(map.getCenter())}
       >
-        <ZoomControl />
         <Layer
           type="symbol"
           id="marker"
@@ -70,6 +75,8 @@ const Map = ({
     </div>
   );
 };
+
+// onZoom={map => onZoom && onZoom({ zoom: map.getZoom() })}
 
 Map.propTypes = {
   centerCoords: PropTypes.shape({
@@ -86,6 +93,9 @@ Map.propTypes = {
   scrollZoom: PropTypes.bool.isRequired,
   bearing: PropTypes.number.isRequired,
   onClick: PropTypes.func,
+  onMoveEnd: PropTypes.func,
+  mapZoomIncrease: PropTypes.func,
+  mapZoomDecrease: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -93,7 +103,7 @@ Map.defaultProps = {
     lat: 45.503634,
     lng: -73.610406,
   },
-  zoom: 11,
+  zoom: 8,
   minZoom: 8,
   maxZoom: 20,
   scrollZoom: false,

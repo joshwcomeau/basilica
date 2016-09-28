@@ -35,12 +35,12 @@ export const getDistance = ([lat1, lng1], [lat2, lng2]) => {
 
   @returns string - the ID of the matched point.
 */
-export const findClosestPoint = ({ sourcePoint, points }) => {
+export const findClosestPoint = ({ sourcePoint, pointsById }) => {
   let matches = [];
   let closestDistance = Infinity;
 
-  Object.keys(points).forEach((pointId) => {
-    const point = points[pointId];
+  Object.keys(pointsById).forEach((pointId) => {
+    const point = pointsById[pointId];
     const distance = getDistance(sourcePoint, point);
 
     if (distance < closestDistance) {

@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { initializeShopify, clickMap } from '../../actions';
+import {
+  initializeShopify,
+  mapClick,
+  mapMove,
+  mapZoomIncrease,
+  mapZoomDecrease,
+} from '../../actions';
 
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
@@ -17,7 +23,16 @@ class Home extends Component {
   }
 
   render() {
-    const { city, markerCoords, clickMap } = this.props;
+    const {
+      city,
+      zoom,
+      centerCoords,
+      markerCoords,
+      mapClick,
+      mapMove,
+      mapZoomIncrease,
+      mapZoomDecrease,
+    } = this.props;
 
     return (
       <div className="home">
@@ -34,9 +49,14 @@ class Home extends Component {
         <Editorial />
 
         <Map
-          onClick={clickMap}
-          markerCoords={markerCoords}
           {...mapboxCitySettings[city]}
+          zoom={zoom}
+          markerCoords={markerCoords}
+          centerCoords={centerCoords}
+          onClick={mapClick}
+          onMoveEnd={mapMove}
+          mapZoomIncrease={mapZoomIncrease}
+          mapZoomDecrease={mapZoomDecrease}
         />
 
         <ProductsList />
@@ -47,21 +67,31 @@ class Home extends Component {
 
 Home.propTypes = {
   city: PropTypes.oneOf(['montreal']),
+  zoom: PropTypes.number,
+  centerCoords: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }),
   markerCoords: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }),
-  clickMap: PropTypes.func,
   initializeShopify: PropTypes.func,
+  mapClick: PropTypes.func,
+  mapMove: PropTypes.func,
+  mapZoomIncrease: PropTypes.func,
+  mapZoomDecrease: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   city: state.city,
+  zoom: state.map.zoom,
+  centerCoords: state.map.center,
   markerCoords: state.map.marker,
 });
 
 export { Home };
 export default connect(
   mapStateToProps,
-  { clickMap, initializeShopify }
+  { initializeShopify, mapClick, mapMove, mapZoomIncrease, mapZoomDecrease }
 )(Home);

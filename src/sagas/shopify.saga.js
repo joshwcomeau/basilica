@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { takeLatest } from 'redux-saga';
-import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, fork, select } from 'redux-saga/effects';
 
 import shopifyClient, { getCart } from '../utils/shopify.utils';
 import { findClosestPoint } from '../utils/geo.utils';
 import planCoordinates from '../data/plan-coordinates';
 import {
-  CLICK_MAP,
+  MAP_CLICK,
 } from '../actions';
 
 
@@ -20,9 +20,22 @@ export function* initializeShopify() {
 
 function* findAndFetchProducts({ lat, lng }) {
   const city = yield select(state => state.city);
-  const coordsInCity = planCoordinates[city];
+  const plansInCity = planCoordinates[city];
+  const planIds = findClosestPoint({
+    sourcePoint: [lat, lng],
+    pointsById: plansInCity,
+  });
+
+  // TODO: Fetch products that match the planIds
 }
 
 export function* watchClickMap() {
-  yield* takeLatest(CLICK_MAP, findAndFetchProducts);
+  yield* takeLatest(MAP_CLICK, findAndFetchProducts);
+}
+
+export default function* () {
+  yield [
+    fork(initializeShopify),
+    fork(watchClickMap),
+  ];
 }
