@@ -34,8 +34,6 @@ const Map = ({
 
   const marker = markerCoords && <Feature coordinates={markerCoordsArray} />;
 
-  coords = centerCoords;
-
   return (
     <div className={classes}>
       <div className="zoom-control">
