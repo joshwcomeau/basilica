@@ -85,3 +85,9 @@ export const getCart = () => {
       );
   });
 };
+
+export const getProductById = (productId) => {
+  return client
+    .fetchProduct(productId)
+    .then(product => product.attrs);
+};

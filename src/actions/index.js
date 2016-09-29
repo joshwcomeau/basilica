@@ -3,15 +3,16 @@ export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
 export const CHANGE_CITY = 'CHANGE_CITY';
 export const FETCH_CART_FAILURE = 'FETCH_CART_FAILURE';
+export const FETCH_PRODUCT_REQUEST = 'FETCH_PRODUCT_REQUEST';
+export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
+export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
 export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
 export const LOAD_CART = 'LOAD_CART';
 export const MAP_CLICK = 'MAP_CLICK';
 export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_DECREASE = 'MAP_ZOOM_DECREASE';
 export const MAP_ZOOM_INCREASE = 'MAP_ZOOM_INCREASE';
-export const PRODUCTS_REQUEST = 'PRODUCTS_REQUEST';
-export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
-export const PRODUCTS_FAILURE = 'PRODUCTS_FAILURE';
+export const SELECT_PRODUCT = 'SELECT_PRODUCT';
 
 
 export const addToCartRequest = ({ product, quantity = 1 }) => ({
@@ -36,6 +37,20 @@ export const changeCity = ({ city }) => ({
 
 export const fetchCartFailure = ({ error }) => ({
   type: FETCH_CART_FAILURE,
+  error,
+});
+
+export const fetchProductRequest = () => ({
+  type: FETCH_PRODUCT_REQUEST,
+});
+
+export const fetchProductSuccess = ({ product }) => ({
+  type: FETCH_PRODUCT_SUCCESS,
+  product,
+});
+
+export const fetchProductFailure = ({ error }) => ({
+  type: FETCH_PRODUCT_FAILURE,
   error,
 });
 
@@ -67,17 +82,7 @@ export const mapZoomIncrease = () => ({
   type: MAP_ZOOM_INCREASE,
 });
 
-export const productsRequest = ({ city }) => ({
-  type: PRODUCTS_REQUEST,
-  city,
-});
-
-export const productsSuccess = ({ products }) => ({
-  type: PRODUCTS_SUCCESS,
-  products,
-});
-
-export const productsFailure = ({ error }) => ({
-  type: PRODUCTS_FAILURE,
-  error,
+export const selectProduct = ({ id }) => ({
+  type: SELECT_PRODUCT,
+  id,
 });

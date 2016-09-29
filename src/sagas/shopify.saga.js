@@ -2,11 +2,18 @@
 import { takeLatest } from 'redux-saga';
 import { take, call, put, fork, select } from 'redux-saga/effects';
 
-import shopifyClient, { getCart } from '../utils/shopify.utils';
-import { findClosestPoints } from '../utils/geo.utils';
+import {
+  getCart,
+  getProductById,
+} from '../utils/shopify.utils';
+import { findClosestPoint } from '../utils/geo.utils';
 import planCoordinates from '../data/plan-coordinates';
 import {
   MAP_CLICK,
+  fetchProductRequest,
+  fetchProductSuccess,
+  fetchProductFailure,
+  selectProduct,
 } from '../actions';
 
 
@@ -20,15 +27,38 @@ export function* initializeShopify() {
 
 function* findAndFetchProducts({ lat, lng }) {
   const city = yield select(state => state.city);
-  const plansInCity = planCoordinates[city];
-  const planIds = findClosestPoints({
+  const allProductsInCity = planCoordinates[city];
+
+  // Find the closest product.
+  // NOTE: While we display several list items, they're all variants of the
+  // same product. A single map area may have 3 reprint years and 2 original
+  // years, but they're all stored in the same Shopify product.
+  const productId = findClosestPoint({
     sourcePoint: [lat, lng],
-    pointsById: plansInCity,
+    pointsById: allProductsInCity,
   });
 
-  const products = yield call(shopifyClient.fetchQueryProducts, {
-    product_ids: planIds,
-  });
+  // It's possible we've already loaded this product.
+  let product = yield select(state => state.products.byId[productId]);
+
+  // If not, we need to fetch it from our shopify shop.
+  if (!product) {
+    // Dispatch our 'request' action, so we can show a loading indicator.
+    yield put(fetchProductRequest());
+
+    try {
+      product = yield call(getProductById, productId);
+
+      yield put(fetchProductSuccess({ product }));
+    } catch (error) {
+      yield put(fetchProductFailure({ error }));
+    }
+  }
+
+  // If we successfully retrieved the product, set it as selected.
+  if (product) {
+    yield put(selectProduct({ id: product.product_id }));
+  }
 }
 
 export function* watchClickMap() {
