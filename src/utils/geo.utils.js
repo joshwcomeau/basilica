@@ -25,8 +25,31 @@ export const getDistance = ([lat1, lng1], [lat2, lng2]) => {
   );
 };
 
+
+/** findPointsWithinMap
+  Finds all point IDs that fall within the given map area.
+
+  @param {neBound} object { lat, lng } - North-east coordinate
+  @param {swBound} object { lat, lng } - South-west coordinate
+  @param {pointsById} object -  the key is a unique identifier, while the value
+                            is an array of [lat, lng].
+*/
+export const findPointsWithinMap = ({ neBound, swBound, pointsById }) => {
+  return Object.keys(pointsById).filter((pointId) => {
+    const [lat, lng] = pointsById[pointId];
+
+    const isWithinNEBound = lat > neBound.lat && lng > neBound.lng;
+    const isWithinSWBound = lat < swBound.lat && lng < swBound.lng;
+
+    return isWithinNEBound && isWithinSWBound;
+  });
+};
+
+
 /** findClosestPoint
   Finds the closest geometric point to a specified coordinate.
+  NOTE: Currently unused, was part of a former strategy to only show 1 product
+  at a time. May still come in handy though.
 
   @param {lat} number
   @param {lng} number

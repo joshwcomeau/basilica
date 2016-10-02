@@ -1,5 +1,9 @@
 /* eslint-disable no-undef */
-import { getDistance, findClosestPoint } from '../geo.utils';
+import {
+  getDistance,
+  findPointsWithinMap,
+  findClosestPoint,
+} from '../geo.utils';
 
 
 describe('getDistance', () => {
@@ -44,6 +48,37 @@ describe('findClosestPoint', () => {
 
     const actualOutput = findClosestPoint({ sourcePoint, pointsById });
     const expectedOutput = 'c';
+
+    expect(actualOutput).toEqual(expectedOutput);
+  });
+});
+
+describe('findPointsWithinMap', () => {
+  it('returns only the points within the box', () => {
+    const neBound = { lat: 10, lng: 20 };
+    const swBound = { lat: 40, lng: 50 };
+
+    const pointsById = {
+      // These points are within the bounds:
+      a: [15, 25],
+      b: [39.99, 49.99],
+      c: [35, 22],
+      d: [10.01, 20.01],
+      // These points are not:
+      e: [9.99, 30],
+      f: [41, 41],
+      g: [25, 15],
+      h: [35, 75],
+      i: [-25, 30],
+      j: [25, -30],
+    };
+
+    const actualOutput = findPointsWithinMap({
+      neBound,
+      swBound,
+      pointsById,
+    });
+    const expectedOutput = ['a', 'b', 'c', 'd'];
 
     expect(actualOutput).toEqual(expectedOutput);
   });
