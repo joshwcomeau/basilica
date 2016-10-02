@@ -4,7 +4,7 @@ exports[`Map renders correctly 1`] = `
   <div
     className="zoom-control">
     <button
-      onClick={undefined}>
+      onClick={[Function bound handleZoomChange]}>
       +
     </button>
     <button

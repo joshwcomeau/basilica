@@ -38,8 +38,8 @@ export const findPointsWithinMap = ({ neBound, swBound, pointsById }) => {
   return Object.keys(pointsById).filter((pointId) => {
     const [lat, lng] = pointsById[pointId];
 
-    const isWithinNEBound = lat > neBound.lat && lng > neBound.lng;
-    const isWithinSWBound = lat < swBound.lat && lng < swBound.lng;
+    const isWithinNEBound = lat < neBound.lat && lng < neBound.lng;
+    const isWithinSWBound = lat > swBound.lat && lng > swBound.lng;
 
     return isWithinNEBound && isWithinSWBound;
   });

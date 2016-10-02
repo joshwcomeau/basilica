@@ -5,8 +5,7 @@ import mapboxCitySettings from '../data/mapbox-city-settings';
 import {
   MAP_CLICK,
   MAP_MOVE,
-  MAP_ZOOM_BEGIN,
-  MAP_ZOOM_FINISH,
+  MAP_ZOOM_START,
 } from '../actions';
 
 
@@ -15,10 +14,6 @@ const initialState = {
   marker: null,
   center: mapboxCitySettings[defaultCity].centerCoords,
   zoom: mapboxCitySettings[defaultCity].zoom,
-  bounds: {
-    ne: [-Infinity, -Infinity],
-    sw: [Infinity, Infinity],
-  },
 };
 
 function markerReducer(state = initialState.marker, action) {
@@ -34,7 +29,7 @@ function zoomReducer(state = initialState.zoom, action) {
     case MAP_CLICK:
       // If we're super zoomed-out, we want to zoom in a bit.
       return state > 13 ? state : 13;
-    case MAP_ZOOM_BEGIN: {
+    case MAP_ZOOM_START: {
       const difference = action.direction === 'increment' ? 0.5 : -0.5;
       return state + difference;
     }

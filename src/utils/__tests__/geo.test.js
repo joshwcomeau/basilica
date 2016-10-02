@@ -55,8 +55,8 @@ describe('findClosestPoint', () => {
 
 describe('findPointsWithinMap', () => {
   it('returns only the points within the box', () => {
-    const neBound = { lat: 10, lng: 20 };
-    const swBound = { lat: 40, lng: 50 };
+    const neBound = { lat: 40, lng: 50 };
+    const swBound = { lat: 10, lng: 20 };
 
     const pointsById = {
       // These points are within the bounds:

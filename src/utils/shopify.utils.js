@@ -86,8 +86,8 @@ export const getCart = () => {
   });
 };
 
-export const getProductById = (productId) => {
+export const getProductsById = (productIds) => {
   return client
-    .fetchProduct(productId)
-    .then(product => product.attrs);
+    .fetchQueryProducts({ product_ids: productIds })
+    .then(products => products.map(product => product.attrs));
 };

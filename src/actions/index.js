@@ -4,16 +4,16 @@ export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
 export const CHANGE_CITY = 'CHANGE_CITY';
 export const FETCH_CART_FAILURE = 'FETCH_CART_FAILURE';
-export const FETCH_PRODUCT_REQUEST = 'FETCH_PRODUCT_REQUEST';
-export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
-export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
+export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
+export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
+export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
 export const LOAD_CART = 'LOAD_CART';
 export const MAP_CLICK = 'MAP_CLICK';
 export const MAP_MOVE = 'MAP_MOVE';
-export const MAP_ZOOM_BEGIN = 'MAP_ZOOM_BEGIN';
+export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
-export const SELECT_PRODUCT = 'SELECT_PRODUCT';
+export const SET_VISIBLE_PRODUCTS = 'SET_VISIBLE_PRODUCTS';
 
 
 export const addToCartRequest = ({ product, quantity = 1 }) => ({
@@ -41,17 +41,17 @@ export const fetchCartFailure = ({ error }) => ({
   error,
 });
 
-export const fetchProductRequest = () => ({
-  type: FETCH_PRODUCT_REQUEST,
+export const fetchProductsRequest = () => ({
+  type: FETCH_PRODUCTS_REQUEST,
 });
 
-export const fetchProductSuccess = ({ product }) => ({
-  type: FETCH_PRODUCT_SUCCESS,
-  product,
+export const fetchProductsSuccess = ({ products }) => ({
+  type: FETCH_PRODUCTS_SUCCESS,
+  products,
 });
 
-export const fetchProductFailure = ({ error }) => ({
-  type: FETCH_PRODUCT_FAILURE,
+export const fetchProductsFailure = ({ error }) => ({
+  type: FETCH_PRODUCTS_FAILURE,
   error,
 });
 
@@ -79,8 +79,8 @@ export const mapMove = map => ({
   swBound: map.getBounds()._sw,
 });
 
-export const mapZoomBegin = direction => ({
-  type: MAP_ZOOM_BEGIN,
+export const mapZoomStart = direction => ({
+  type: MAP_ZOOM_START,
   direction,
 });
 
@@ -91,7 +91,7 @@ export const mapZoomFinish = map => ({
   swBound: map.getBounds()._sw,
 });
 
-export const selectProduct = ({ id }) => ({
-  type: SELECT_PRODUCT,
-  id,
+export const setVisibleProducts = ({ ids }) => ({
+  type: SET_VISIBLE_PRODUCTS,
+  ids,
 });

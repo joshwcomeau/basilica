@@ -4,16 +4,17 @@ import { take, call, put, fork, select } from 'redux-saga/effects';
 
 import {
   getCart,
-  getProductById,
+  getProductsById,
 } from '../utils/shopify.utils';
-import { findClosestPoint } from '../utils/geo.utils';
+import { findPointsWithinMap } from '../utils/geo.utils';
 import planCoordinates from '../data/plan-coordinates';
 import {
   MAP_CLICK,
-  fetchProductRequest,
-  fetchProductSuccess,
-  fetchProductFailure,
-  selectProduct,
+  MAP_MOVE,
+  fetchProductsRequest,
+  fetchProductsSuccess,
+  fetchProductsFailure,
+  setVisibleProducts,
 } from '../actions';
 
 
@@ -25,49 +26,63 @@ export function* initializeShopify() {
   // store with the cart items.
 }
 
-function* findAndFetchProducts({ lat, lng }) {
+function* findAndFetchProducts({ neBound, swBound }) {
   const city = yield select(state => state.city);
-  const allProductsInCity = planCoordinates[city];
+  const allProductIdsInCity = planCoordinates[city];
 
-  // Find the closest product.
-  // NOTE: While we display several list items, they're all variants of the
-  // same product. A single map area may have 3 reprint years and 2 original
-  // years, but they're all stored in the same Shopify product.
-  const productId = findClosestPoint({
-    sourcePoint: [lat, lng],
-    pointsById: allProductsInCity,
+  // TODO: the neBound/swBound provided by mapbox is a square that doesn't
+  // take bearing into account. It includes way more maps than it should.
+  // This may or may not be an issue. IF it is, we may need to do some maths
+  // to make it more accurate.
+
+  // Find all the products that fit within the bounding box of the map's
+  // current viewport.
+  const productIds = findPointsWithinMap({
+    neBound,
+    swBound,
+    pointsById: allProductIdsInCity,
   });
 
-  // It's possible we've already loaded this product.
-  let product = yield select(state => state.products.byId[productId]);
+  // It's possible we've already loaded some or all of these products.
+  // Figure out which products we actually have to load.
+  const productsById = yield select(state => state.products.byId);
 
-  // If not, we need to fetch it from our shopify shop.
-  if (!product) {
+  const productIdsToLoad = productIds.filter(productId => (
+    typeof productsById[productId] === 'undefined'
+  ));
+
+  console.log('Matched', productIds, '. Need to load', productIdsToLoad);
+
+  if (productIdsToLoad.length > 0) {
     // Dispatch our 'request' action, so we can show a loading indicator.
-    yield put(fetchProductRequest());
+    yield put(fetchProductsRequest());
 
     try {
-      product = yield call(getProductById, productId);
+      const newProducts = yield call(getProductsById, productIdsToLoad);
 
-      yield put(fetchProductSuccess({ product }));
+      yield put(fetchProductsSuccess({ products: newProducts }));
     } catch (error) {
-      yield put(fetchProductFailure({ error }));
+      yield put(fetchProductsFailure({ error }));
+      return; // TODO: Can you use returns to short-circuit generators?
     }
   }
 
   // If we successfully retrieved the product, set it as selected.
-  if (product) {
-    yield put(selectProduct({ id: product.product_id }));
-  }
+  yield put(setVisibleProducts({ ids: productIds }));
 }
 
 export function* watchClickMap() {
   yield* takeLatest(MAP_CLICK, findAndFetchProducts);
 }
 
+export function* watchMoveMap() {
+  yield* takeLatest(MAP_MOVE, findAndFetchProducts);
+}
+
 export default function* () {
   yield [
     fork(initializeShopify),
     fork(watchClickMap),
+    fork(watchMoveMap),
   ];
 }

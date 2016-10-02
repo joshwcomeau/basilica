@@ -5,7 +5,7 @@ import {
   initializeShopify,
   mapClick,
   mapMove,
-  mapZoomBegin,
+  mapZoomStart,
   mapZoomFinish,
 } from '../../actions';
 
@@ -31,7 +31,7 @@ class Home extends Component {
       markerCoords,
       mapClick,
       mapMove,
-      mapZoomBegin,
+      mapZoomStart,
       mapZoomFinish,
     } = this.props;
 
@@ -56,7 +56,7 @@ class Home extends Component {
           centerCoords={centerCoords}
           mapClick={mapClick}
           mapMove={mapMove}
-          mapZoomBegin={mapZoomBegin}
+          mapZoomStart={mapZoomStart}
           mapZoomFinish={mapZoomFinish}
         />
 
@@ -80,7 +80,7 @@ Home.propTypes = {
   initializeShopify: PropTypes.func,
   mapClick: PropTypes.func,
   mapMove: PropTypes.func,
-  mapZoomBegin: PropTypes.func,
+  mapZoomStart: PropTypes.func,
   mapZoomFinish: PropTypes.func,
 };
 
@@ -98,7 +98,7 @@ export default connect(
     initializeShopify,
     mapClick,
     mapMove,
-    mapZoomBegin,
+    mapZoomStart,
     mapZoomFinish,
   }
 )(Home);
