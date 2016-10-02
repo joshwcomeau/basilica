@@ -1,0 +1,6 @@
+exports[`ProductsListFilter renders correctly 1`] = `
+<div
+  className="products-list-filter">
+  Your Component Here :)
+</div>
+`;

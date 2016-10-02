@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { ProductsListUnconnected } from './index';
+import ProductsListItem from './index';
 
-describe('ProductsList', () => {
+describe('ProductsListItem', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<ProductsListUnconnected />).toJSON();
+    const tree = renderer.create(<ProductsListItem />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
