@@ -17,10 +17,9 @@ class Map extends Component {
     super(props);
 
     this.handleMapMove = this.handleMapMove.bind(this);
-  }
-
-  componentWillMount() {
-    this.debouncedMapZoom = debounce(this.props.mapZoom, 100);
+    this.handleZoomIn = this.handleZoomChange.bind(this, 'increment');
+    this.handleZoomOut = this.handleZoomChange.bind(this, 'decrement');
+    this.debounceMapZoomFinish = debounce(this.props.mapZoomFinish, 510);
   }
 
   handleMapMove(map) {
@@ -36,6 +35,17 @@ class Map extends Component {
     }
   }
 
+  handleZoomChange(direction) {
+    // Ok, so this is fairly hideous.
+    // When we trigger a zoom change, the map will start its animation. The
+    // map's bounding boxes aren't optimistically updated, so we need to wait
+    // until the map has finished zooming to re-fetch our items.
+    // Dispatch the 'begin' event right away to trigger the animation, and
+    // then just wait until it's ready.
+    this.props.mapZoomBegin(direction);
+    this.debounceMapZoomFinish(this.map);
+  }
+
   render() {
     const {
       centerCoords,
@@ -46,8 +56,6 @@ class Map extends Component {
       scrollZoom,
       bearing,
       mapClick,
-      mapZoomIncrease,
-      mapZoomDecrease,
     } = this.props;
 
     const classes = classNames(['map']);
@@ -66,8 +74,8 @@ class Map extends Component {
     return (
       <div className={classes}>
         <div className="zoom-control">
-          <button onClick={zoom < maxZoom && mapZoomIncrease}>+</button>
-          <button onClick={zoom > minZoom && mapZoomDecrease}>-</button>
+          <button onClick={zoom < maxZoom && this.handleZoomIn}>+</button>
+          <button onClick={zoom > minZoom && this.handleZoomOut}>-</button>
         </div>
         <ReactMapboxGl
           style={style}
@@ -89,7 +97,7 @@ class Map extends Component {
           accessToken={accessToken}
           onClick={mapClick}
           onMoveEnd={this.handleMapMove}
-          onZoom={this.debouncedMapZoom}
+          onStyleLoad={map => this.map = map}
         >
           <Layer
             type="symbol"
@@ -121,9 +129,8 @@ Map.propTypes = {
   bearing: PropTypes.number.isRequired,
   mapClick: PropTypes.func,
   mapMove: PropTypes.func,
-  mapZoom: PropTypes.func,
-  mapZoomIncrease: PropTypes.func,
-  mapZoomDecrease: PropTypes.func,
+  mapZoomBegin: PropTypes.func,
+  mapZoomFinish: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -136,9 +143,10 @@ Map.defaultProps = {
   maxZoom: 20,
   scrollZoom: false,
   bearing: 0,
-  onClick() {},
-  onMoveEnd() {},
-  onZoom() {},
+  mapClick() {},
+  mapMove() {},
+  mapZoomBegin() {},
+  mapZoomFinish() {},
 };
 
 export default Map;

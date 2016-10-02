@@ -11,9 +11,8 @@ export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
 export const LOAD_CART = 'LOAD_CART';
 export const MAP_CLICK = 'MAP_CLICK';
 export const MAP_MOVE = 'MAP_MOVE';
-export const MAP_ZOOM = 'MAP_ZOOM';
-export const MAP_ZOOM_DECREASE = 'MAP_ZOOM_DECREASE';
-export const MAP_ZOOM_INCREASE = 'MAP_ZOOM_INCREASE';
+export const MAP_ZOOM_BEGIN = 'MAP_ZOOM_BEGIN';
+export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
 export const SELECT_PRODUCT = 'SELECT_PRODUCT';
 
 
@@ -80,19 +79,16 @@ export const mapMove = map => ({
   swBound: map.getBounds()._sw,
 });
 
-export const mapZoom = map => ({
-  type: MAP_ZOOM,
+export const mapZoomBegin = direction => ({
+  type: MAP_ZOOM_BEGIN,
+  direction,
+});
+
+export const mapZoomFinish = map => ({
+  type: MAP_ZOOM_FINISH,
   zoom: map.getZoom(),
   neBound: map.getBounds()._ne,
   swBound: map.getBounds()._sw,
-});
-
-export const mapZoomDecrease = () => ({
-  type: MAP_ZOOM_DECREASE,
-});
-
-export const mapZoomIncrease = () => ({
-  type: MAP_ZOOM_INCREASE,
 });
 
 export const selectProduct = ({ id }) => ({

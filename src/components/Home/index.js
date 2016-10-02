@@ -5,9 +5,8 @@ import {
   initializeShopify,
   mapClick,
   mapMove,
-  mapZoom,
-  mapZoomIncrease,
-  mapZoomDecrease,
+  mapZoomBegin,
+  mapZoomFinish,
 } from '../../actions';
 
 import Hero from '../Hero';
@@ -32,9 +31,8 @@ class Home extends Component {
       markerCoords,
       mapClick,
       mapMove,
-      mapZoom,
-      mapZoomIncrease,
-      mapZoomDecrease,
+      mapZoomBegin,
+      mapZoomFinish,
     } = this.props;
 
     return (
@@ -58,9 +56,8 @@ class Home extends Component {
           centerCoords={centerCoords}
           mapClick={mapClick}
           mapMove={mapMove}
-          mapZoom={mapZoom}
-          mapZoomIncrease={mapZoomIncrease}
-          mapZoomDecrease={mapZoomDecrease}
+          mapZoomBegin={mapZoomBegin}
+          mapZoomFinish={mapZoomFinish}
         />
 
         <ProductsList />
@@ -83,9 +80,8 @@ Home.propTypes = {
   initializeShopify: PropTypes.func,
   mapClick: PropTypes.func,
   mapMove: PropTypes.func,
-  mapZoom: PropTypes.func,
-  mapZoomIncrease: PropTypes.func,
-  mapZoomDecrease: PropTypes.func,
+  mapZoomBegin: PropTypes.func,
+  mapZoomFinish: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -102,8 +98,7 @@ export default connect(
     initializeShopify,
     mapClick,
     mapMove,
-    mapZoom,
-    mapZoomIncrease,
-    mapZoomDecrease,
+    mapZoomBegin,
+    mapZoomFinish,
   }
 )(Home);
