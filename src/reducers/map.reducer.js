@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import isEqual from 'lodash.isequal';
 
 import { getDefaultCity } from '../utils/geo.utils';
 import mapboxCitySettings from '../data/mapbox-city-settings';
@@ -16,6 +15,10 @@ const initialState = {
   marker: null,
   center: mapboxCitySettings[defaultCity].centerCoords,
   zoom: mapboxCitySettings[defaultCity].zoom,
+  bounds: {
+    ne: [-Infinity, -Infinity],
+    sw: [Infinity, Infinity],
+  },
 };
 
 function markerReducer(state = initialState.marker, action) {
@@ -30,7 +33,7 @@ function zoomReducer(state = initialState.zoom, action) {
   switch (action.type) {
     case MAP_CLICK:
       // If we're super zoomed-out, we want to zoom in a bit.
-      return state > 12 ? state : 12;
+      return state > 13 ? state : 13;
     case MAP_ZOOM_INCREASE: return state + 0.5;
     case MAP_ZOOM_DECREASE: return state - 0.5;
     default: return state;
@@ -38,20 +41,12 @@ function zoomReducer(state = initialState.zoom, action) {
 }
 
 function centerReducer(state = initialState.center, action) {
-  const { type, ...coords } = action;
+  const { type, lat, lng } = action;
 
   switch (type) {
     case MAP_MOVE:
     case MAP_CLICK: {
-      // Ignore actions that don't actually change the center.
-      // This is an annoying quirk caused by the fact that re-rendering Mapbox
-      // causes the `onMoveEnd` to re-fire, which means we get stuck in an
-      // endless loop.
-      // A nicer solution would be to handle this in the component, where the
-      // action is dispatched; sadly, though, there is a closure issue that
-      // makes it even messier than this :(
-      const isUpdated = !isEqual(state, coords);
-      return isUpdated ? { lat: action.lat, lng: action.lng } : state;
+      return { lat, lng };
     }
     default:
       return state;

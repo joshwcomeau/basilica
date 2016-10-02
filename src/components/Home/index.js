@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import {
   initializeShopify,
   mapClick,
   mapMove,
+  mapZoom,
   mapZoomIncrease,
   mapZoomDecrease,
 } from '../../actions';
@@ -30,6 +32,7 @@ class Home extends Component {
       markerCoords,
       mapClick,
       mapMove,
+      mapZoom,
       mapZoomIncrease,
       mapZoomDecrease,
     } = this.props;
@@ -53,8 +56,9 @@ class Home extends Component {
           zoom={zoom}
           markerCoords={markerCoords}
           centerCoords={centerCoords}
-          onClick={mapClick}
-          onMoveEnd={mapMove}
+          mapClick={mapClick}
+          mapMove={mapMove}
+          mapZoom={mapZoom}
           mapZoomIncrease={mapZoomIncrease}
           mapZoomDecrease={mapZoomDecrease}
         />
@@ -79,6 +83,7 @@ Home.propTypes = {
   initializeShopify: PropTypes.func,
   mapClick: PropTypes.func,
   mapMove: PropTypes.func,
+  mapZoom: PropTypes.func,
   mapZoomIncrease: PropTypes.func,
   mapZoomDecrease: PropTypes.func,
 };
@@ -93,5 +98,12 @@ const mapStateToProps = state => ({
 export { Home };
 export default connect(
   mapStateToProps,
-  { initializeShopify, mapClick, mapMove, mapZoomIncrease, mapZoomDecrease }
+  {
+    initializeShopify,
+    mapClick,
+    mapMove,
+    mapZoom,
+    mapZoomIncrease,
+    mapZoomDecrease,
+  }
 )(Home);

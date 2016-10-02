@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 export const ADD_TO_CART_REQUEST = 'ADD_TO_CART_REQUEST';
 export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
@@ -10,6 +11,7 @@ export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
 export const LOAD_CART = 'LOAD_CART';
 export const MAP_CLICK = 'MAP_CLICK';
 export const MAP_MOVE = 'MAP_MOVE';
+export const MAP_ZOOM = 'MAP_ZOOM';
 export const MAP_ZOOM_DECREASE = 'MAP_ZOOM_DECREASE';
 export const MAP_ZOOM_INCREASE = 'MAP_ZOOM_INCREASE';
 export const SELECT_PRODUCT = 'SELECT_PRODUCT';
@@ -62,16 +64,27 @@ export const loadCart = () => ({
   type: LOAD_CART,
 });
 
-export const mapClick = ({ lat, lng }) => ({
+export const mapClick = (map, event) => ({
   type: MAP_CLICK,
-  lat,
-  lng,
+  lat: event.lngLat.lat,
+  lng: event.lngLat.lng,
+  neBound: map.getBounds()._ne,
+  swBound: map.getBounds()._sw,
 });
 
-export const mapMove = ({ lat, lng }) => ({
+export const mapMove = map => ({
   type: MAP_MOVE,
-  lat,
-  lng,
+  lat: map.getCenter().lat,
+  lng: map.getCenter().lng,
+  neBound: map.getBounds()._ne,
+  swBound: map.getBounds()._sw,
+});
+
+export const mapZoom = map => ({
+  type: MAP_ZOOM,
+  zoom: map.getZoom(),
+  neBound: map.getBounds()._ne,
+  swBound: map.getBounds()._sw,
 });
 
 export const mapZoomDecrease = () => ({
