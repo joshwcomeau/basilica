@@ -7,7 +7,7 @@ import ReactMapboxGl, {
 } from 'react-mapbox-gl';
 
 import { accessToken } from '../../data/mapbox-config.json';
-import style from '../../data/mapbox-style-streets.json';
+import style from '../../data/mapbox-style-light.json';
 import './index.scss';
 
 
