@@ -108,7 +108,7 @@ class Map extends Component {
           <Layer
             type="symbol"
             id="marker"
-            layout={{ 'icon-image': 'circle-stroked-15' }}
+            layout={{ 'icon-image': 'map-pin-default' }}
             paint={{ 'icon-color': '#FF0000' }}
           >
             {markerCoords && marker}
