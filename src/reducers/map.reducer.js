@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { getDefaultCity } from '../utils/geo.utils';
 import mapboxCitySettings from '../data/mapbox-city-settings';
 import {
-  MAP_CLICK,
+  MAP_CLICK_START,
   MAP_MOVE,
   MAP_ZOOM_START,
 } from '../actions';
@@ -18,7 +18,7 @@ const initialState = {
 
 function markerReducer(state = initialState.marker, action) {
   switch (action.type) {
-    case MAP_CLICK:
+    case MAP_CLICK_START:
       return { lat: action.lat, lng: action.lng };
     default: return state;
   }
@@ -26,7 +26,7 @@ function markerReducer(state = initialState.marker, action) {
 
 function zoomReducer(state = initialState.zoom, action) {
   switch (action.type) {
-    case MAP_CLICK:
+    case MAP_CLICK_START:
       // If we're super zoomed-out, we want to zoom in a bit.
       return state > 13 ? state : 13;
     case MAP_ZOOM_START: {
@@ -42,7 +42,7 @@ function centerReducer(state = initialState.center, action) {
 
   switch (type) {
     case MAP_MOVE:
-    case MAP_CLICK: {
+    case MAP_CLICK_START: {
       return { lat, lng };
     }
     default:

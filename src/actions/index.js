@@ -9,7 +9,8 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
 export const LOAD_CART = 'LOAD_CART';
-export const MAP_CLICK = 'MAP_CLICK';
+export const MAP_CLICK_START = 'MAP_CLICK_START';
+export const MAP_CLICK_FINISH = 'MAP_CLICK_FINISH';
 export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
@@ -63,10 +64,14 @@ export const loadCart = () => ({
   type: LOAD_CART,
 });
 
-export const mapClick = (map, event) => ({
-  type: MAP_CLICK,
-  lat: event.lngLat.lat,
-  lng: event.lngLat.lng,
+export const mapClickStart = ({ lat, lng }) => ({
+  type: MAP_CLICK_START,
+  lat,
+  lng,
+});
+
+export const mapClickFinish = map => ({
+  type: MAP_CLICK_FINISH,
   neBound: map.getBounds()._ne,
   swBound: map.getBounds()._sw,
 });

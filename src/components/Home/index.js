@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import {
   initializeShopify,
-  mapClick,
   mapMove,
+  mapClickStart,
+  mapClickFinish,
   mapZoomStart,
   mapZoomFinish,
 } from '../../actions';
@@ -29,8 +30,9 @@ class Home extends Component {
       zoom,
       centerCoords,
       markerCoords,
-      mapClick,
       mapMove,
+      mapClickStart,
+      mapClickFinish,
       mapZoomStart,
       mapZoomFinish,
     } = this.props;
@@ -54,7 +56,8 @@ class Home extends Component {
           zoom={zoom}
           markerCoords={markerCoords}
           centerCoords={centerCoords}
-          mapClick={mapClick}
+          mapClickStart={mapClickStart}
+          mapClickFinish={mapClickFinish}
           mapMove={mapMove}
           mapZoomStart={mapZoomStart}
           mapZoomFinish={mapZoomFinish}
@@ -78,7 +81,8 @@ Home.propTypes = {
     lng: PropTypes.number.isRequired,
   }),
   initializeShopify: PropTypes.func,
-  mapClick: PropTypes.func,
+  mapClickStart: PropTypes.func,
+  mapClickFinish: PropTypes.func,
   mapMove: PropTypes.func,
   mapZoomStart: PropTypes.func,
   mapZoomFinish: PropTypes.func,
@@ -96,7 +100,8 @@ export default connect(
   mapStateToProps,
   {
     initializeShopify,
-    mapClick,
+    mapClickStart,
+    mapClickFinish,
     mapMove,
     mapZoomStart,
     mapZoomFinish,

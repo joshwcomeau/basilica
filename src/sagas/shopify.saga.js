@@ -9,8 +9,9 @@ import {
 import { findPointsWithinMap } from '../utils/geo.utils';
 import planCoordinates from '../data/plan-coordinates';
 import {
-  MAP_CLICK,
   MAP_MOVE,
+  MAP_CLICK_FINISH,
+  MAP_ZOOM_FINISH,
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
@@ -51,8 +52,6 @@ function* findAndFetchProducts({ neBound, swBound }) {
     typeof productsById[productId] === 'undefined'
   ));
 
-  console.log('Matched', productIds, '. Need to load', productIdsToLoad);
-
   if (productIdsToLoad.length > 0) {
     // Dispatch our 'request' action, so we can show a loading indicator.
     yield put(fetchProductsRequest());
@@ -71,18 +70,16 @@ function* findAndFetchProducts({ neBound, swBound }) {
   yield put(setVisibleProducts({ ids: productIds }));
 }
 
-export function* watchClickMap() {
-  yield* takeLatest(MAP_CLICK, findAndFetchProducts);
-}
-
-export function* watchMoveMap() {
-  yield* takeLatest(MAP_MOVE, findAndFetchProducts);
+export function* watchMap() {
+  yield* takeLatest(
+    [MAP_MOVE, MAP_CLICK_FINISH, MAP_ZOOM_FINISH],
+    findAndFetchProducts
+  );
 }
 
 export default function* () {
   yield [
     fork(initializeShopify),
-    fork(watchClickMap),
-    fork(watchMoveMap),
+    fork(watchMap),
   ];
 }

@@ -17,9 +17,11 @@ class Map extends Component {
     super(props);
 
     this.handleMapMove = this.handleMapMove.bind(this);
-    this.handleZoomIn = this.handleZoomChange.bind(this, 'increment');
-    this.handleZoomOut = this.handleZoomChange.bind(this, 'decrement');
+    this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleZoomIn = this.handleMapZoomChange.bind(this, 'increment');
+    this.handleZoomOut = this.handleMapZoomChange.bind(this, 'decrement');
     this.debounceMapZoomFinish = debounce(this.props.mapZoomFinish, 510);
+    this.debounceMapClickFinish = debounce(this.props.mapClickFinish, 510);
   }
 
   handleMapMove(map) {
@@ -35,15 +37,20 @@ class Map extends Component {
     }
   }
 
-  handleZoomChange(direction) {
+  handleMapZoomChange(direction) {
     // Ok, so this is fairly hideous.
     // When we trigger a zoom change, the map will start its animation. The
     // map's bounding boxes aren't optimistically updated, so we need to wait
     // until the map has finished zooming to re-fetch our items.
     // Dispatch the 'begin' event right away to trigger the animation, and
     // then just wait until it's ready.
-    this.props.mapZoomBegin(direction);
+    this.props.mapZoomStart(direction);
     this.debounceMapZoomFinish(this.map);
+  }
+
+  handleMapClick(map, event) {
+    this.props.mapClickStart(event.lngLat);
+    this.debounceMapClickFinish(this.map);
   }
 
   render() {
@@ -55,7 +62,6 @@ class Map extends Component {
       maxZoom,
       scrollZoom,
       bearing,
-      mapClick,
     } = this.props;
 
     const classes = classNames(['map']);
@@ -95,7 +101,7 @@ class Map extends Component {
           bearing={bearing}
           movingMethod="easeTo"
           accessToken={accessToken}
-          onClick={mapClick}
+          onClick={this.handleMapClick}
           onMoveEnd={this.handleMapMove}
           onStyleLoad={map => this.map = map}
         >
@@ -127,9 +133,10 @@ Map.propTypes = {
   maxZoom: PropTypes.number.isRequired,
   scrollZoom: PropTypes.bool.isRequired,
   bearing: PropTypes.number.isRequired,
-  mapClick: PropTypes.func,
   mapMove: PropTypes.func,
-  mapZoomBegin: PropTypes.func,
+  mapClickStart: PropTypes.func,
+  mapClickFinish: PropTypes.func,
+  mapZoomStart: PropTypes.func,
   mapZoomFinish: PropTypes.func,
 };
 
@@ -143,9 +150,10 @@ Map.defaultProps = {
   maxZoom: 20,
   scrollZoom: false,
   bearing: 0,
-  mapClick() {},
   mapMove() {},
-  mapZoomBegin() {},
+  mapClickStart() {},
+  mapClickFinish() {},
+  mapZoomStart() {},
   mapZoomFinish() {},
 };
 
