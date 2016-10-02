@@ -1,11 +1,20 @@
 // Colours
 $white: #FFF;
-$offwhite: #F2F2F2;
-$black: #111;
+$offwhite: #f5f5f5;
+$grey: #686868;
+$darkgrey: #282828;
+$black: #1e1e1e;
+
+$darknavy: #1a1b23;
+$blue: #679df6;
+
+$primary: $blue;
+
 
 // Breakpoints
 $mq-mobile: 540px;
 $mq-tablet: 1024px;
+
 
 // Sizes
 $header-height: 60px;
