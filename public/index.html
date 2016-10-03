@@ -57,7 +57,12 @@
 
       body {
         background: #282828;
-        font-family: 'officina sans';
+      }
+
+      body, button, input, textarea, select {
+        font-family: 'gotham';
+        font-weight: bold;
+        color: #1e1e1e;
       }
 
       #root {
@@ -68,9 +73,23 @@
       }
 
       @font-face {
-        font-family: 'officina sans';
-        src: url('%PUBLIC_URL%/fonts/officina/officina-sans.woff') format('woff');
+        font-family: 'officina';
+        src: url('%PUBLIC_URL%/fonts/officina/officina-serif-regular.woff') format('woff');
         font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'gotham';
+        src: url('%PUBLIC_URL%/fonts/gotham/gotham-condensed-book.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'gotham';
+        src: url('%PUBLIC_URL%/fonts/gotham/gotham-condensed-bold.woff') format('woff');
+        font-weight: 700;
         font-style: normal;
       }
     </style>
