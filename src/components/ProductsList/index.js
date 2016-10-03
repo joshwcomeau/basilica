@@ -16,6 +16,8 @@ import './index.scss';
 const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
   const classes = classNames(['products-list']);
 
+  console.log('PRODUCTS', products);
+
   return (
     <div className={classes}>
       <InnerWrapper>
@@ -25,13 +27,14 @@ const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
             activeFilter={activeFilter}
             onClickFilter={changeProductFilter}
           />
-
-          {products.map(product => (
-            <ProductsListItem
-              key={product.product_id}
-              product={product}
-            />
-          ))}
+          <div className="products-list-card-contents">
+            {products.map(product => (
+              <ProductsListItem
+                key={product.product_id}
+                product={product}
+              />
+            ))}
+          </div>
         </div>
       </InnerWrapper>
     </div>

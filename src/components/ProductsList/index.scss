@@ -14,12 +14,9 @@
     background: $white;
     transform: translateY(-64px);
 
-    .products-list-card-contents {
-      padding: 50px;
-    }
   }
 
-  .products-list-filter {
+  .products-list-filter, .products-list-item {
     border-bottom: 1px solid $lightgrey;
   }
 

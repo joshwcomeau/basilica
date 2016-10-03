@@ -1,7 +1,35 @@
 @import '../../variables';
 
 .products-list-item {
+  display: flex;
+  padding: 50px;
 
+  .product-photo {
+    flex: 4;
+    margin-right: 50px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .product-info {
+    flex: 6;
+
+    h3 {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 1rem 0;
+      font-size: 17px;
+      line-height: 1.4em;
+      font-family: 'officina';
+      font-weight: 500;
+    }
+
+  }
 
   @media screen and (max-width: $mq-tablet) {
 
