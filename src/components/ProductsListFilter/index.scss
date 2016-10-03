@@ -7,7 +7,7 @@
 
   li {
     position: relative;
-    line-height: 64px;
+    line-height: 63px;
     display: inline-block;
     margin: 0 10px;
 
@@ -21,9 +21,10 @@
       text-transform: uppercase;
       outline: none;
       cursor: pointer;
+      color: $grey;
     }
 
-    &.is-active:after {
+    &:after {
       content: '';
       position: absolute;
       left: 0;
@@ -31,6 +32,17 @@
       bottom: 0;
       height: 3px;
       background: $blue;
+      transform-origin: bottom center;
+      transform: scaleY(0);
+      transition: transform 300ms;
+    }
+
+    &.is-active {
+      button { color: $black; }
+
+      &:after {
+        transform: scaleY(1);
+      }
     }
   }
 

@@ -1,0 +1,6 @@
+exports[`InnerWrapper renders correctly 1`] = `
+<div
+  className="inner-wrapper">
+  Your Component Here :)
+</div>
+`;

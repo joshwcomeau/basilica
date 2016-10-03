@@ -8,7 +8,6 @@
   background: $offwhite;
 
   .products-list-card {
-    @include inner-wrapper;
     position: relative;
     min-height: 800px;
     box-shadow: $light-shadow;

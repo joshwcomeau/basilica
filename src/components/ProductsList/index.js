@@ -9,6 +9,7 @@ import productFilters from '../../data/product-filters';
 
 import ProductsListFilter from '../ProductsListFilter';
 import ProductsListItem from '../ProductsListItem';
+import InnerWrapper from '../InnerWrapper';
 import './index.scss';
 
 
@@ -17,20 +18,22 @@ const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
 
   return (
     <div className={classes}>
-      <div className="products-list-card">
-        <ProductsListFilter
-          filters={productFilters}
-          activeFilter={activeFilter}
-          onClickFilter={changeProductFilter}
-        />
-
-        {products.map(product => (
-          <ProductsListItem
-            key={product.product_id}
-            product={product}
+      <InnerWrapper>
+        <div className="products-list-card">
+          <ProductsListFilter
+            filters={productFilters}
+            activeFilter={activeFilter}
+            onClickFilter={changeProductFilter}
           />
-        ))}
-      </div>
+
+          {products.map(product => (
+            <ProductsListItem
+              key={product.product_id}
+              product={product}
+            />
+          ))}
+        </div>
+      </InnerWrapper>
     </div>
   );
 };
