@@ -1,0 +1,6 @@
+exports[`ToggleRow renders correctly 1`] = `
+<div
+  className="toggle-row">
+  Your Component Here :)
+</div>
+`;

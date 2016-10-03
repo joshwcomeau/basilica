@@ -7,7 +7,7 @@ import { changeProductFilter } from '../../actions';
 import { productListSelector } from '../../reducers/products.reducer';
 import productFilters from '../../data/product-filters';
 
-import ProductsListFilter from '../ProductsListFilter';
+import ToggleRow from '../ToggleRow';
 import ProductsListItem from '../ProductsListItem';
 import InnerWrapper from '../InnerWrapper';
 import './index.scss';
@@ -22,10 +22,10 @@ const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
     <div className={classes}>
       <InnerWrapper>
         <div className="products-list-card">
-          <ProductsListFilter
-            filters={productFilters}
-            activeFilter={activeFilter}
-            onClickFilter={changeProductFilter}
+          <ToggleRow
+            items={productFilters}
+            activeItem={activeFilter}
+            onClickItem={changeProductFilter}
           />
           <div className="products-list-card-contents">
             {products.map(product => (

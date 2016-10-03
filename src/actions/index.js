@@ -38,7 +38,7 @@ export const changeCity = ({ city }) => ({
   city,
 });
 
-export const changeProductFilter = ({ filter }) => ({
+export const changeProductFilter = filter => ({
   type: CHANGE_PRODUCT_FILTER,
   filter,
 });

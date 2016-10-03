@@ -13,12 +13,30 @@
     box-shadow: $light-shadow;
     background: $white;
     transform: translateY(-64px);
-
   }
 
-  .products-list-filter, .products-list-item {
+  .products-list-item {
     border-bottom: 1px solid $lightgrey;
   }
+
+  .toggle-row {
+    height: 64px;
+    background: $white;
+    text-align: center;
+    border-bottom: 1px solid $lightgrey;
+
+    li {
+      line-height: 63px;
+      margin: 0 10px;
+
+      button {
+        height: 64px;
+        padding: 0 90px;
+        font-size: 18px;
+      }
+    }
+  }
+
 
   @media screen and (max-width: $mq-tablet) {
 
