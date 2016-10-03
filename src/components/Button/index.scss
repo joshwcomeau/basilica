@@ -6,6 +6,9 @@ $medium: 55px;
 .button {
   cursor: pointer;
   display: inline-block;
+  border: none;
+  padding: 0;
+  outline: none;
 
   &.light {
     background: $white;

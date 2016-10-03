@@ -18,10 +18,10 @@ const Button = ({ children, theme, icon, size, withInnerBorder, onClick }) => {
   );
 
   return (
-    <div className={classes} onClick={onClick}>
+    <button className={classes} onClick={onClick}>
       {iconSquare}
       {children}
-    </div>
+    </button>
   );
 };
 
