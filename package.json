@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build:analyze": "NODE_ENV=production webpack --config config/webpack.config.prod.js --json > stats.json",
     "test": "node scripts/test.js --env=jsdom",
     "add-component": "NODE_ENV=development node scripts/add-component/transpile.js"
   },
