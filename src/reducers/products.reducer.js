@@ -75,6 +75,7 @@ export default combineReducers({
 // //////////////////
 const byId = state => state.products.byId;
 const visibleIds = state => state.products.visibleIds;
+const filter = state => state.products.filter;
 
 export const visibleProductsSelector = createSelector(
   [byId, visibleIds],
@@ -82,6 +83,16 @@ export const visibleProductsSelector = createSelector(
 );
 
 export const productListSelector = createSelector(
-  [byId, visibleIds],
-  (byId, visibleIds) => visibleIds.map(id => byId[id])
+  [byId, visibleIds, filter],
+  (byId, visibleIds, filter) => (
+    visibleIds
+      .map(id => byId[id])
+      .filter((product) => {
+        switch (filter) {
+          case 'print': return product.product_type === 'Print';
+          case 'original': return product.product_type === 'Original';
+          default: return true;
+        }
+      })
+  )
 );
