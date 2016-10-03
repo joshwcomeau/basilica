@@ -1,7 +1,30 @@
 @import '../../variables';
 
 .products-list-filter {
+  height: 64px;
+  background: $white;
+  text-align: center;
 
+  li {
+    position: relative;
+    line-height: 64px;
+    display: inline-block;
+    padding: 0 90px;
+    margin: 0 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &.is-active:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background: $blue;
+    }
+  }
 
   @media screen and (max-width: $mq-tablet) {
 

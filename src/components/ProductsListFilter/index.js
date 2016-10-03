@@ -10,7 +10,11 @@ const ProductsListFilter = () => {
 
   return (
     <div className={classes}>
-      Your Component Here :)
+      <ul>
+        <li className="is-active">Print</li>
+        <li>Original</li>
+        <li>All</li>
+      </ul>
     </div>
   );
 };

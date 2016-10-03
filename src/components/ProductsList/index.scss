@@ -1,8 +1,28 @@
 @import '../../variables';
+@import '../../mixins';
 
 .products-list {
   position: relative;
+  z-index: 2;
   min-height: 1000px;
+  background: $offwhite;
+
+  .products-list-card {
+    @include inner-wrapper;
+    position: relative;
+    min-height: 800px;
+    box-shadow: $light-shadow;
+    background: $white;
+    transform: translateY(-64px);
+
+    .products-list-card-contents {
+      padding: 50px;
+    }
+  }
+
+  .products-list-filter {
+    border-bottom: 1px solid $lightgrey;
+  }
 
   @media screen and (max-width: $mq-tablet) {
 

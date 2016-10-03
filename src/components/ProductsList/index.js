@@ -16,9 +16,15 @@ const ProductsList = ({ products, productFilter }) => {
 
   return (
     <div className={classes}>
-      <ProductsListFilter filter={productFilter} />
-      <ProductsListItem product={products} />
-      Your Component Here :)
+      <div className="products-list-card">
+        <ProductsListFilter filter={productFilter} />
+        {products.map(product => (
+          <ProductsListItem
+            key={product.product_id}
+            product={product}
+          />
+        ))}
+      </div>
     </div>
   );
 };

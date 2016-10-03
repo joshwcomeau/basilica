@@ -13,7 +13,7 @@ import {
 const initialState = {
   isFetching: false,
   byId: {},
-  visibleIds: null,
+  visibleIds: [],
 };
 
 function isFetchingReducer(state = initialState.isFetching, action) {
@@ -68,6 +68,6 @@ export const visibleProductsSelector = createSelector(
 );
 
 export const productListSelector = createSelector(
-  [byId],
-  byId => Object.keys(byId).map(id => byId[id])
+  [byId, visibleIds],
+  (byId, visibleIds) => visibleIds.map(id => byId[id])
 );
