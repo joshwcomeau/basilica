@@ -1,0 +1,6 @@
+exports[`AddToCartButton renders correctly 1`] = `
+<div
+  className="add-to-cart-button">
+  Your Component Here :)
+</div>
+`;

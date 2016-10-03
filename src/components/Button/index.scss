@@ -9,6 +9,9 @@ $medium: 55px;
   border: none;
   padding: 0;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &.light {
     background: $white;
@@ -39,16 +42,14 @@ $medium: 55px;
     height: $medium;
 
     .icon-square { width: $medium; height: $medium; }
-    .icon { width: $small; height: $small; }
+    .icon { width: 20px; height: 20px; }
   }
 
-  &.with-inner-border .icon-square {
-    &.dark {
-      border-right: 1px solid rgba(255,255,255,0.3);
-    }
-    &.light {
-      border-right: 1px solid rgba(0,0,0,0.3);
-    }
+  &.with-inner-border.dark .icon-square {
+    border-right: 1px solid rgba(255,255,255,0.3);
+  }
+  &.with-inner-border.light .icon-square {
+    border-right: 1px solid rgba(0,0,0,0.3);
   }
 
   .icon-square {
@@ -57,6 +58,8 @@ $medium: 55px;
     align-items: center;
     justify-content: center;
   }
+
+  .button-text { padding: 0 30px; font-size: 18px; }
 
   @media screen and (max-width: $mq-tablet) {
 
