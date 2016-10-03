@@ -1,0 +1,65 @@
+@import '../../variables';
+
+$small: 36px;
+$medium: 55px;
+
+.button {
+  cursor: pointer;
+  display: inline-block;
+
+  &.light {
+    background: $white;
+    box-shadow: $light-shadow;
+
+    svg {
+      fill: $grey;
+    }
+  }
+
+  &.dark {
+    color: $white;
+    background: $black;
+
+    svg {
+      fill: $white;
+    }
+  }
+
+  &.small {
+    height: $small;
+
+    .icon-square { width: $small; height: $small; }
+    .icon { width: 20px; height: 20px; }
+  }
+
+  &.medium {
+    height: $medium;
+
+    .icon-square { width: $medium; height: $medium; }
+    .icon { width: $small; height: $small; }
+  }
+
+  &.with-inner-border .icon-square {
+    &.dark {
+      border-right: 1px solid rgba(255,255,255,0.3);
+    }
+    &.light {
+      border-right: 1px solid rgba(0,0,0,0.3);
+    }
+  }
+
+  .icon-square {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}

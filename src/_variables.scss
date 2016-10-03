@@ -1,6 +1,7 @@
 // Colours
 $white: #FFF;
 $offwhite: #f5f5f5;
+$lightgrey: #cccccc;
 $grey: #686868;
 $darkgrey: #282828;
 $black: #1e1e1e;
@@ -20,3 +21,8 @@ $mq-tablet: 1024px;
 $header-height: 60px;
 $main-content-border-size: 10px; // NOTE: Also in mission-critical index.html
 $max-width: 1440px; // NOTE: Also in mission-critical index.html
+$max-width-inner: 1250px;
+
+
+// Misc
+$light-shadow: 0px 2px 3px rgba(0,0,0,0.175);

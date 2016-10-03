@@ -7,6 +7,7 @@ import ReactMapboxGl, {
 } from 'react-mapbox-gl';
 import debounce from 'lodash.debounce';
 
+import Button from '../Button';
 import { accessToken } from '../../data/mapbox-config.json';
 import style from '../../data/mapbox-style-light.json';
 import './index.scss';
@@ -79,10 +80,15 @@ class Map extends Component {
 
     return (
       <div className={classes}>
-        <div className="zoom-control">
-          <button onClick={zoom < maxZoom && this.handleZoomIn}>+</button>
-          <button onClick={zoom > minZoom && this.handleZoomOut}>-</button>
+        <div className="map-controls">
+          <div className="zoom-controls">
+            <Button icon="plus" onClick={zoom < maxZoom && this.handleZoomIn} />
+            <Button icon="minus" onClick={zoom > minZoom && this.handleZoomOut} />
+          </div>
         </div>
+
+        <div className="map-overlay" />
+
         <ReactMapboxGl
           style={style}
           className={classes}
