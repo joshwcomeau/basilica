@@ -109,6 +109,7 @@ class Map extends Component {
           accessToken={accessToken}
           onClick={this.handleMapClick}
           onMoveEnd={this.handleMapMove}
+          attributionPosition="top-right"
           onStyleLoad={map => this.map = map}
         >
           <Layer

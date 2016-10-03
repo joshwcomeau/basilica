@@ -4,7 +4,7 @@
 .map {
   position: relative;
   z-index: 1;
-  min-height: 400px;
+  height: 525px;
 
   .map-controls {
     @include inner-wrapper;
@@ -17,8 +17,13 @@
     .zoom-controls {
       position: absolute;
       bottom: 35px;
+      right: 0;
       display: flex;
       flex-direction: column;
+
+      .button:first-of-type {
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
     }
   }
 
@@ -40,4 +45,9 @@
   @media screen and (max-width: $mq-mobile) {
 
   }
+}
+
+.mapboxgl-ctrl-attrib {
+  font-size: 10px;
+  opacity: 0.75;
 }

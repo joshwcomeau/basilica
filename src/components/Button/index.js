@@ -6,7 +6,7 @@ import Icon from '../Icon';
 import './index.scss';
 
 
-const Button = ({ children, theme, icon, size, withInnerBorder }) => {
+const Button = ({ children, theme, icon, size, withInnerBorder, onClick }) => {
   const classes = classNames('button', size, theme, {
     'with-inner-border': withInnerBorder,
   });
@@ -18,7 +18,7 @@ const Button = ({ children, theme, icon, size, withInnerBorder }) => {
   );
 
   return (
-    <div className={classes}>
+    <div className={classes} onClick={onClick}>
       {iconSquare}
       {children}
     </div>
