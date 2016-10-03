@@ -1,6 +1,17 @@
 exports[`ProductsListFilter renders correctly 1`] = `
 <div
   className="products-list-filter">
-  Your Component Here :)
+  <ul>
+    <li
+      className="is-active">
+      Print
+    </li>
+    <li>
+      Original
+    </li>
+    <li>
+      All
+    </li>
+  </ul>
 </div>
 `;

@@ -104,10 +104,23 @@ export const equalWithinPath = curry((obj1, obj2, path) => (
     obj2 = { a: { b: ['goodbye'] } }
     updatedWithinPath(obj1, obj2, ['a', 'b', 1]) --> true, 'hi' !== 'goodbye'
 
-    @param {obj1} object
-    @param {obj2} object
-    @param {path} array or string (string formatted as 'a.b.0')
+  @param {obj1} object
+  @param {obj2} object
+  @param {path} array/string (string formatted as 'a.b.0')
 */
 export const updatedWithinPath = curry((obj1, obj2, path) => (
   get(obj1, path) !== get(obj2, path)
 ));
+
+
+/** capitalize
+  Capitalizes the first character in a string
+
+  @example
+    str = 'hello world';
+    capitalize(str); --> 'Hello world'
+  @param {str} string the string to capitalize
+*/
+export const capitalize = str => (
+  str.charAt(0).toUpperCase() + str.slice(1)
+);

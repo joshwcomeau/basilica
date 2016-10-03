@@ -3,18 +3,31 @@ import { createSelector } from 'reselect';
 import pick from 'lodash.pick';
 
 import {
+  CHANGE_PRODUCT_FILTER,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAILURE,
   SET_VISIBLE_PRODUCTS,
 } from '../actions';
+import productFilters from '../data/product-filters';
 
 
 const initialState = {
   isFetching: false,
   byId: {},
   visibleIds: [],
+  filter: productFilters[0],
 };
+
+
+function filterReducer(state = initialState.filter, action) {
+  const { type, filter } = action;
+
+  switch (type) {
+    case CHANGE_PRODUCT_FILTER: return filter;
+    default: return state;
+  }
+}
 
 function isFetchingReducer(state = initialState.isFetching, action) {
   switch (action.type) {
@@ -53,6 +66,7 @@ export default combineReducers({
   isFetching: isFetchingReducer,
   byId: byIdReducer,
   visibleIds: visibleIdsReducer,
+  filter: filterReducer,
 });
 
 
