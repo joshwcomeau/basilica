@@ -2,30 +2,41 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import { capitalize } from '../../utils/misc.utils';
 import './index.scss';
 
 
-const ToggleRow = ({ items, activeItem, onClickItem }) => {
-  const classes = classNames(['toggle-row']);
+const ToggleRow = ({ prefix, className, items, activeItem, onClickItem }) => {
+  const classes = classNames(['toggle-row', className]);
 
   const itemElements = items.map((item) => {
+    // If the 'item' is a string, we want to use that string for both
+    // the value and the label
+    let itemObject;
+    if (typeof item === 'string') {
+      itemObject = { value: item, label: item };
+    } else {
+      itemObject = item;
+    }
+
     const itemClasses = classNames({
-      'is-active': item === activeItem,
+      'is-active': itemObject.value === activeItem,
     });
 
     return (
-      <li className={itemClasses} key={item}>
+      <li className={itemClasses} key={itemObject.value}>
         {/* Adding a <button> to be a11y-compliant */}
-        <button onClick={() => onClickItem(item)}>
-          {capitalize(item)}
+        <button onClick={() => onClickItem(itemObject.value)}>
+          {itemObject.label}
         </button>
       </li>
     );
   });
 
+  const prefixElement = prefix && <h4 className="prefix">{prefix}</h4>;
+
   return (
     <div className={classes}>
+      {prefixElement}
       <ul>
         {itemElements}
       </ul>
@@ -34,7 +45,12 @@ const ToggleRow = ({ items, activeItem, onClickItem }) => {
 };
 
 ToggleRow.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
+  className: PropTypes.string,
+  prefix: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ])),
   activeItem: PropTypes.string,
   onClickItem: PropTypes.func,
 };

@@ -19,24 +19,23 @@
     border-bottom: 1px solid $lightgrey;
   }
 
-  .toggle-row {
+  .products-list-filter {
     height: 64px;
     background: $white;
     text-align: center;
     border-bottom: 1px solid $lightgrey;
 
     li {
-      line-height: 63px;
+      line-height: 64px;
       margin: 0 10px;
 
       button {
-        height: 64px;
+        height: inherit;
         padding: 0 90px;
         font-size: 18px;
       }
     }
   }
-
 
   @media screen and (max-width: $mq-tablet) {
 

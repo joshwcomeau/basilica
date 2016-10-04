@@ -29,6 +29,21 @@
       font-weight: 500;
     }
 
+    .product-year-select {
+      height: 35px;
+      line-height: 35px;
+
+      button {
+        height: 35px;
+        padding: 0 20px;
+        font-size: 16px;
+      }
+    }
+
+    .add-to-cart-button {
+      margin-top: 22px;
+    }
+
   }
 
   @media screen and (max-width: $mq-tablet) {

@@ -16,13 +16,12 @@ import './index.scss';
 const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
   const classes = classNames(['products-list']);
 
-  console.log('PRODUCTS', products);
-
   return (
     <div className={classes}>
       <InnerWrapper>
         <div className="products-list-card">
           <ToggleRow
+            className="products-list-filter"
             items={productFilters}
             activeItem={activeFilter}
             onClickItem={changeProductFilter}

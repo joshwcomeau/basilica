@@ -1,20 +1,35 @@
 /* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import classNames from 'classnames';
 
 import AddToCartButton from '../AddToCartButton';
+import ToggleRow from '../ToggleRow';
 import './index.scss';
 
 
-class ProductsListItem extends Component {
+class ProductsListItem extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.updateVariantId = this.updateVariantId.bind(this);
 
     this.state = {
       selectedVariantId: props.product.variants[0].id,
     };
   }
+
+  updateVariantId(variantId) {
+    this.setState({ selectedVariantId: variantId });
+  }
+
+  createYearOptions() {
+    return this.props.product.variants.map(variant => ({
+      value: variant.id,
+      label: variant.title,
+    }));
+  }
+
   render() {
     const classes = classNames(['products-list-item']);
 
@@ -27,6 +42,11 @@ class ProductsListItem extends Component {
       variants,
     } = this.props.product;
 
+    const yearOptions = this.createYearOptions();
+
+    const selectedVariant = variants.find(variant => (
+      variant.id === this.state.selectedVariantId
+    ));
 
     // We either want to show the first image in our `images` array,
     // OR the image that corresponds with our variant. Annoyingly,
@@ -47,7 +67,19 @@ class ProductsListItem extends Component {
             className="product-description"
             dangerouslySetInnerHTML={{ __html: body_html }}
           />
-          <AddToCartButton />
+
+          <ToggleRow
+            className="product-year-select"
+            items={yearOptions}
+            activeItem={this.state.selectedVariantId}
+            prefix="Year"
+            onClickItem={this.updateVariantId}
+          />
+
+          <AddToCartButton
+            price={selectedVariant.formatted_price}
+            available={available}
+          />
         </div>
       </div>
     );
@@ -66,7 +98,7 @@ ProductsListItem.propTypes = {
     variants: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       available: PropTypes.bool.isRequired,
-      title: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired, // This is actually the 'year'
       price: PropTypes.string.isRequired,
       formatted_price: PropTypes.string.isRequired,
     })).isRequired,

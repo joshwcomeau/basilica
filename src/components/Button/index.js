@@ -6,8 +6,16 @@ import Icon from '../Icon';
 import './index.scss';
 
 
-const Button = ({ children, theme, icon, size, withInnerBorder, onClick }) => {
-  const classes = classNames('button', size, theme, {
+const Button = ({
+  children,
+  className,
+  theme,
+  icon,
+  size,
+  withInnerBorder,
+  onClick,
+}) => {
+  const classes = classNames('button', className, size, theme, {
     'with-inner-border': withInnerBorder,
   });
 
@@ -33,6 +41,7 @@ const Button = ({ children, theme, icon, size, withInnerBorder, onClick }) => {
 
 Button.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   theme: PropTypes.oneOf(['light', 'dark']),
   icon: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),

@@ -8,12 +8,13 @@ import './index.scss';
 const AddToCartButton = ({ price }) => {
   return (
     <Button
+      className="add-to-cart-button"
       icon="add_to_cart"
       theme="dark"
       size="medium"
       withInnerBorder
     >
-      {price} | Add To Cart
+      {price}&nbsp;&nbsp;|&nbsp;&nbsp;Add To Cart
     </Button>
   );
 };
