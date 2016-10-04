@@ -1,0 +1,6 @@
+exports[`Cart renders correctly 1`] = `
+<div
+  className="cart">
+  Your Component Here :)
+</div>
+`;

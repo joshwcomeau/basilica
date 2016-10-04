@@ -20,6 +20,7 @@ export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
 export const SET_PRODUCTS_WITHIN_PROXIMITY = 'SET_PRODUCTS_WITHIN_PROXIMITY';
+export const TOGGLE_CART = 'TOGGLE_CART';
 
 
 export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
@@ -29,8 +30,14 @@ export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
   quantity,
 });
 
-export const addToCartSuccess = () => ({
+export const toggleCart = () => ({
+  type: TOGGLE_CART,
+});
+
+export const addToCartSuccess = ({ productId, variantId }) => ({
   type: ADD_TO_CART_SUCCESS,
+  productId,
+  variantId,
 });
 
 export const addToCartFailure = ({ error }) => ({

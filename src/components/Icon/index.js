@@ -4,10 +4,12 @@ import React, { PropTypes } from 'react';
 import iconMap from '../../utils/icon-map';
 
 
-const Icon = ({ value, ...delegated }) => {
+const Icon = ({ value, size, ...delegated }) => {
   const divStyles = {
     display: 'inline-block',
   };
+
+  if (size) { divStyles.width = `${size}px`; }
 
   return (
     <div style={divStyles} className="icon">
@@ -22,6 +24,7 @@ const Icon = ({ value, ...delegated }) => {
 
 Icon.propTypes = {
   value: PropTypes.string.isRequired,
+  size: PropTypes.number,
 };
 
 Icon.defaultProps = {};

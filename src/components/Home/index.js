@@ -8,8 +8,10 @@ import {
   mapClickFinish,
   mapZoomStart,
   mapZoomFinish,
+  toggleCart,
 } from '../../actions';
 
+import Cart from '../Cart';
 import Hero from '../Hero';
 import HeaderContents from '../HeaderContents';
 import HeaderBackdrop from '../HeaderBackdrop';
@@ -30,15 +32,18 @@ class Home extends Component {
       zoom,
       centerCoords,
       markerCoords,
+      showCart,
       mapMove,
       mapClickStart,
       mapClickFinish,
       mapZoomStart,
       mapZoomFinish,
+      toggleCart,
     } = this.props;
 
     return (
       <div className="home">
+        { showCart && <Cart />}
         <Hero />
 
         {/*
@@ -46,7 +51,7 @@ class Home extends Component {
           We want the Contents to float above the Hero image, but the backdrop
           should slide under it.
         */}
-        <HeaderContents />
+        <HeaderContents toggleCart={toggleCart} />
         <HeaderBackdrop />
 
         <Editorial />
@@ -80,12 +85,14 @@ Home.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }),
+  showCart: PropTypes.bool,
   initializeShopify: PropTypes.func,
   mapClickStart: PropTypes.func,
   mapClickFinish: PropTypes.func,
   mapMove: PropTypes.func,
   mapZoomStart: PropTypes.func,
   mapZoomFinish: PropTypes.func,
+  toggleCart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -93,6 +100,7 @@ const mapStateToProps = state => ({
   zoom: state.map.zoom,
   centerCoords: state.map.center,
   markerCoords: state.map.marker,
+  showCart: state.cart.isOpen,
 });
 
 export { Home };
@@ -105,5 +113,6 @@ export default connect(
     mapMove,
     mapZoomStart,
     mapZoomFinish,
+    toggleCart,
   }
 )(Home);

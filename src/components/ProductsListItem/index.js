@@ -4,7 +4,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { lightboxOpen } from '../../actions';
+import { lightboxOpen, addToCartRequest } from '../../actions';
 
 import AddToCartButton from '../AddToCartButton';
 import ProductListItemPhoto from '../ProductListItemPhoto';
@@ -18,6 +18,7 @@ class ProductsListItem extends PureComponent {
 
     this.updateVariantId = this.updateVariantId.bind(this);
     this.viewPhoto = this.viewPhoto.bind(this);
+    this.addToCart = this.addToCart.bind(this);
 
     this.state = {
       selectedVariantId: props.product.variants[0].id,
@@ -31,6 +32,13 @@ class ProductsListItem extends PureComponent {
 
     this.props.lightboxOpen({
       urls: imageUrls,
+    });
+  }
+
+  addToCart() {
+    this.props.addToCartRequest({
+      product: this.props.product,
+      variantId: this.state.selectedVariantId,
     });
   }
 
@@ -95,6 +103,7 @@ class ProductsListItem extends PureComponent {
           <AddToCartButton
             price={selectedVariant.formatted_price}
             available={available}
+            onClick={this.addToCart}
           />
         </div>
       </div>
@@ -121,6 +130,7 @@ ProductsListItem.propTypes = {
     })).isRequired,
   }).isRequired,
   lightboxOpen: PropTypes.func,
+  addToCartRequest: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -129,4 +139,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(mapStateToProps, {
   lightboxOpen,
+  addToCartRequest,
 })(ProductsListItem);

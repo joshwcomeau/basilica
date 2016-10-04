@@ -1,0 +1,13 @@
+@import '../../variables';
+
+.badge {
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  background: $blue;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}

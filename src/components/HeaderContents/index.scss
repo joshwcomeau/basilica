@@ -13,6 +13,30 @@
   max-width: $max-width;
   margin: 0 auto;
 
+  .cart-button {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 6px 5px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+
+    .cart-text {
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .icon {
+      vertical-align: top;
+    }
+  }
+  .cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
   @media screen and (max-width: $mq-tablet) {
 
   }

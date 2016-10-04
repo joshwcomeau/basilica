@@ -14,6 +14,8 @@ import {
   MAP_MOVE,
   MAP_CLICK_FINISH,
   MAP_ZOOM_FINISH,
+  addToCartSuccess,
+  addToCartFailure,
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
@@ -87,10 +89,19 @@ function* addToCart({ product, variantId, quantity }) {
     image.variant_ids[0] === variantId
   ));
 
-  yield call(cart.addVariants, {
-    variant: variantObject,
-    quantity,
-  });
+  try {
+    yield call(cart.addVariants, {
+      variant: variantObject,
+      quantity,
+    });
+
+    yield put(addToCartSuccess({
+      productId: product.product_id,
+      variantId,
+    }));
+  } catch (error) {
+    yield put(addToCartFailure({ error }));
+  }
 }
 
 function* checkout() {
