@@ -2,6 +2,54 @@
 
 .product-list-item-photo {
 
+  .photo-wrapper {
+    position: relative;
+  }
+
+  .overlay {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  img {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .fancy-shadow-center {
+    position: absolute;
+    z-index: 1;
+    width: 55%;
+    height: 20%;
+    border-radius: 100%;
+    background: $black;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    filter: blur(5px);
+    opacity: 0.5;
+  }
+
+  .fancy-shadow-corner {
+    position: absolute;
+    z-index: 1;
+    width: 10%;
+    height: 80%;
+    background: $black;
+    right: 0;
+    bottom: 0;
+    filter: blur(6px);
+    opacity: 0.2;
+    border-radius: 0 100% 0 0;
+  }
 
   @media screen and (max-width: $mq-tablet) {
 

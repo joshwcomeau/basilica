@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
+import overlay from '../../images/product-overlay.png';
 import './index.scss';
 
 
@@ -11,7 +12,15 @@ const ProductListItemPhoto = ({ imageUrl, altText, onClick }) => {
 
   return (
     <a className={classes} onClick={onClick}>
-      <img src={imageUrl} alt={altText} />
+      <div className="photo-wrapper">
+        <div
+          className="overlay"
+          style={{ backgroundImage: `url(${overlay})` }}
+        />
+        <img src={imageUrl} alt={altText} />
+        <div className="fancy-shadow-center" />
+        <div className="fancy-shadow-corner" />
+      </div>
     </a>
   );
 };
