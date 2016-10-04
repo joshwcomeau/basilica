@@ -15,7 +15,7 @@ import {
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
-  setVisibleProducts,
+  setProductsWithinProximity,
 } from '../actions';
 
 
@@ -67,7 +67,7 @@ function* findAndFetchProducts({ neBound, swBound }) {
   }
 
   // If we successfully retrieved the product, set it as selected.
-  yield put(setVisibleProducts({ ids: productIds }));
+  yield put(setProductsWithinProximity({ ids: productIds }));
 }
 
 export function* watchMap() {

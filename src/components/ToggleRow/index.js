@@ -51,7 +51,10 @@ ToggleRow.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ])),
-  activeItem: PropTypes.string,
+  activeItem: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onClickItem: PropTypes.func,
 };
 

@@ -15,7 +15,7 @@ export const MAP_CLICK_FINISH = 'MAP_CLICK_FINISH';
 export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
-export const SET_VISIBLE_PRODUCTS = 'SET_VISIBLE_PRODUCTS';
+export const SET_PRODUCTS_WITHIN_PROXIMITY = 'SET_PRODUCTS_WITHIN_PROXIMITY';
 
 
 export const addToCartRequest = ({ product, quantity = 1 }) => ({
@@ -102,7 +102,7 @@ export const mapZoomFinish = map => ({
   swBound: map.getBounds()._sw,
 });
 
-export const setVisibleProducts = ({ ids }) => ({
-  type: SET_VISIBLE_PRODUCTS,
+export const setProductsWithinProximity = ({ ids }) => ({
+  type: SET_PRODUCTS_WITHIN_PROXIMITY,
   ids,
 });

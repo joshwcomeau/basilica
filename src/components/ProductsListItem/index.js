@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
 import React, { PureComponent, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import AddToCartButton from '../AddToCartButton';
@@ -36,7 +37,6 @@ class ProductsListItem extends PureComponent {
     const {
       available,
       body_html,
-      product_id,
       title,
       images,
       variants,
@@ -87,6 +87,7 @@ class ProductsListItem extends PureComponent {
 }
 
 ProductsListItem.propTypes = {
+  id: PropTypes.string,
   product: PropTypes.shape({
     available: PropTypes.bool.isRequired,
     body_html: PropTypes.string.isRequired,
@@ -105,8 +106,8 @@ ProductsListItem.propTypes = {
   }).isRequired,
 };
 
-ProductsListItem.defaultProps = {
+const mapStateToProps = (state, ownProps) => ({
+  product: state.products.byId[ownProps.id],
+});
 
-};
-
-export default ProductsListItem;
+export default connect(mapStateToProps)(ProductsListItem);

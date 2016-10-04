@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import { changeProductFilter } from '../../actions';
-import { productListSelector } from '../../reducers/products.reducer';
+import { visibleProductIdsSelector } from '../../reducers/products.reducer';
 import productFilters from '../../data/product-filters';
 
 import ToggleRow from '../ToggleRow';
@@ -13,7 +13,11 @@ import InnerWrapper from '../InnerWrapper';
 import './index.scss';
 
 
-const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
+const ProductsList = ({
+  productIds,
+  activeFilter,
+  changeProductFilter,
+}) => {
   const classes = classNames(['products-list']);
 
   return (
@@ -27,10 +31,10 @@ const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
             onClickItem={changeProductFilter}
           />
           <div className="products-list-card-contents">
-            {products.map(product => (
+            {productIds.map(id => (
               <ProductsListItem
-                key={product.product_id}
-                product={product}
+                key={id}
+                id={id}
               />
             ))}
           </div>
@@ -41,7 +45,7 @@ const ProductsList = ({ products, activeFilter, changeProductFilter }) => {
 };
 
 ProductsList.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.object),
+  productIds: PropTypes.arrayOf(PropTypes.string),
   activeFilter: PropTypes.oneOf(productFilters),
   changeProductFilter: PropTypes.func,
 };
@@ -51,9 +55,11 @@ ProductsList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  products: productListSelector(state),
+  productIds: visibleProductIdsSelector(state),
   activeFilter: state.products.filter,
 });
 
 export { ProductsList as ProductsListUnconnected };
-export default connect(mapStateToProps, { changeProductFilter })(ProductsList);
+export default connect(mapStateToProps, {
+  changeProductFilter,
+})(ProductsList);

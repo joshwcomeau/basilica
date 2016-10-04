@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import { createSelector } from 'reselect';
-import pick from 'lodash.pick';
 
 import {
   CHANGE_PRODUCT_FILTER,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAILURE,
-  SET_VISIBLE_PRODUCTS,
+  SET_PRODUCTS_WITHIN_PROXIMITY,
 } from '../actions';
 import productFilters from '../data/product-filters';
 
@@ -15,7 +14,7 @@ import productFilters from '../data/product-filters';
 const initialState = {
   isFetching: false,
   byId: {},
-  visibleIds: [],
+  idsWithinProximity: [],
   filter: productFilters[0],
 };
 
@@ -54,9 +53,9 @@ function byIdReducer(state = initialState.byId, action) {
   }
 }
 
-function visibleIdsReducer(state = initialState.visibleIds, action) {
+function idsWithinProximityReducer(state = initialState.idsWithinProximity, action) {
   switch (action.type) {
-    case SET_VISIBLE_PRODUCTS:
+    case SET_PRODUCTS_WITHIN_PROXIMITY:
       return action.ids;
     default: return state;
   }
@@ -65,7 +64,7 @@ function visibleIdsReducer(state = initialState.visibleIds, action) {
 export default combineReducers({
   isFetching: isFetchingReducer,
   byId: byIdReducer,
-  visibleIds: visibleIdsReducer,
+  idsWithinProximity: idsWithinProximityReducer,
   filter: filterReducer,
 });
 
@@ -74,25 +73,28 @@ export default combineReducers({
 // Selectors /////////
 // //////////////////
 const byId = state => state.products.byId;
-const visibleIds = state => state.products.visibleIds;
+const idsWithinProximity = state => state.products.idsWithinProximity;
 const filter = state => state.products.filter;
 
-export const visibleProductsSelector = createSelector(
-  [byId, visibleIds],
-  (byId, visibleIds) => pick(byId, visibleIds)
-);
+export const visibleProductIdsSelector = createSelector(
+  [byId, idsWithinProximity, filter],
+  (byId, idsWithinProximity, filter) => (
+    idsWithinProximity
+      .filter((productId) => {
+        const product = byId[productId];
 
-export const productListSelector = createSelector(
-  [byId, visibleIds, filter],
-  (byId, visibleIds, filter) => (
-    visibleIds
-      .map(id => byId[id])
-      .filter((product) => {
         switch (filter) {
           case 'print': return product.product_type === 'Print';
           case 'original': return product.product_type === 'Original';
           default: return true;
         }
       })
+  )
+);
+
+export const visibleProductsSelector = createSelector(
+  [byId, visibleProductIdsSelector],
+  (byId, visibleProductIds) => (
+    visibleProductIds.map(productId => byId[productId])
   )
 );
