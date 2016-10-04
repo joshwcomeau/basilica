@@ -13,6 +13,17 @@ $medium: 55px;
   align-items: center;
   justify-content: center;
 
+  &:disabled {
+    cursor: not-allowed;
+
+    &.light {
+      // TODO
+    }
+    &.dark {
+      background: $grey;
+    }
+  }
+
   &.light {
     background: $white;
     box-shadow: $light-shadow;

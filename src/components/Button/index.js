@@ -12,6 +12,7 @@ const Button = ({
   theme,
   icon,
   size,
+  disabled,
   withInnerBorder,
   onClick,
 }) => {
@@ -32,7 +33,7 @@ const Button = ({
   );
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} onClick={onClick} disabled={disabled}>
       {iconSquare}
       {buttonText}
     </button>
@@ -45,6 +46,7 @@ Button.propTypes = {
   theme: PropTypes.oneOf(['light', 'dark']),
   icon: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
+  disabled: PropTypes.bool,
   withInnerBorder: PropTypes.bool,
   onClick: PropTypes.func,
 };
@@ -52,6 +54,7 @@ Button.propTypes = {
 Button.defaultProps = {
   theme: 'light',
   size: 'small',
+  disabled: false,
 };
 
 export default Button;
