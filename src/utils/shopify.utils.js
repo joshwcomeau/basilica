@@ -5,6 +5,45 @@ let cart;
 const SAVED_CART_KEY = 'basilica-saved-cart-id';
 
 
+/** bindMethods
+  Shopify's JS SDK is written in a way that assumes that all methods will be
+  called with their context preserved.
+
+  This is a naive way to write an SDK, and it is incompatible with Redux Saga,
+  which invokes methods indirectly to preserve testability.
+
+  To fix this annoying issue, we need to bind the item's context to all of its
+  methods. This simple helper binds methods to a supplied object.
+*/
+const bindMethods = methods => obj => {
+  methods.forEach((method) => {
+    // eslint-disable-next-line no-param-reassign
+    obj[method] = obj[method].bind(obj);
+  });
+
+  return obj;
+};
+
+const bindMethodsToShopClient = bindMethods([
+  'createCart',
+  'fetch',
+  'fetchCart',
+  'fetchCollection',
+  'fetchProduct',
+  'fetchQueryCollections',
+  'fetchQueryProducts',
+  'updateCart',
+]);
+
+const bindMethodsToCart = bindMethods([
+  'addVariants',
+  'clearLineItems',
+  'removeLineItem',
+  'updateLineItem',
+  'updateModel',
+]);
+
+
 /** createClient
   Create a shopClient, from its SDK. Used for all shop interactions.
 
@@ -21,23 +60,7 @@ export const createClient = () => {
     appId: '6',
   });
 
-  // The Shopify SDK makes heavy use of `this` x_x. Redux-saga invokes things
-  // with its declarative effects system, which doesn't respect that context.
-  // Need to bind all our methods so that they work.
-  const boundMethods = [
-    'createCart',
-    'fetch',
-    'fetchCart',
-    'fetchCollection',
-    'fetchProduct',
-    'fetchQueryCollections',
-    'fetchQueryProducts',
-    'updateCart',
-  ];
-
-  boundMethods.forEach((method) => {
-    client[method] = client[method].bind(client);
-  });
+  bindMethodsToShopClient(client);
 
   return client;
 };
@@ -51,7 +74,7 @@ export default client;
   It's async, because it will need to fetch or create the cart on the first
   invocation, depending on whether a saved cart ID is available in localStorage
 
-  @returns shopify cartModel (http://shopify.github.io/js-buy-sdk/api/classes/CartModel.html)
+  @returns a promise that resolves to a shopify cartModel (http://shopify.github.io/js-buy-sdk/api/classes/CartModel.html)
 */
 export const getCart = () => {
   return new Promise((resolve, reject) => {
@@ -67,6 +90,8 @@ export const getCart = () => {
         .then(
           (persistedCart) => {
             cart = persistedCart;
+
+            bindMethodsToCart(cart);
             resolve(cart);
           },
           reject
@@ -79,6 +104,8 @@ export const getCart = () => {
         (newCart) => {
           cart = newCart;
           localStorage.setItem(SAVED_CART_KEY, cart.id);
+
+          bindMethodsToCart(cart);
           resolve(cart);
         },
         reject

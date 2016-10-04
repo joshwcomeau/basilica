@@ -22,9 +22,10 @@ export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
 export const SET_PRODUCTS_WITHIN_PROXIMITY = 'SET_PRODUCTS_WITHIN_PROXIMITY';
 
 
-export const addToCartRequest = ({ product, quantity = 1 }) => ({
+export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
   type: ADD_TO_CART_REQUEST,
   product,
+  variantId,
   quantity,
 });
 
