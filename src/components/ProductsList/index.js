@@ -9,6 +9,7 @@ import productFilters from '../../data/product-filters';
 
 import ToggleRow from '../ToggleRow';
 import ProductsListItem from '../ProductsListItem';
+import ProductLightbox from '../ProductLightbox';
 import InnerWrapper from '../InnerWrapper';
 import './index.scss';
 
@@ -40,6 +41,8 @@ const ProductsList = ({
           </div>
         </div>
       </InnerWrapper>
+
+      <ProductLightbox />
     </div>
   );
 };

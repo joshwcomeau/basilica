@@ -9,6 +9,10 @@ export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const INITIALIZE_SHOPIFY = 'INITIALIZE_SHOPIFY';
+export const LIGHTBOX_OPEN = 'LIGHTBOX_OPEN';
+export const LIGHTBOX_CLOSE = 'LIGHTBOX_CLOSE';
+export const LIGHTBOX_MOVE_NEXT = 'LIGHTBOX_MOVE_NEXT';
+export const LIGHTBOX_MOVE_PREVIOUS = 'LIGHTBOX_MOVE_PREVIOUS';
 export const LOAD_CART = 'LOAD_CART';
 export const MAP_CLICK_START = 'MAP_CLICK_START';
 export const MAP_CLICK_FINISH = 'MAP_CLICK_FINISH';
@@ -64,6 +68,23 @@ export const fetchProductsFailure = ({ error }) => ({
 
 export const initializeShopify = () => ({
   type: INITIALIZE_SHOPIFY,
+});
+
+export const lightboxOpen = ({ urls }) => ({
+  type: LIGHTBOX_OPEN,
+  urls,
+});
+
+export const lightboxClose = () => ({
+  type: LIGHTBOX_CLOSE,
+});
+
+export const lightboxMoveNext = () => ({
+  type: LIGHTBOX_MOVE_NEXT,
+});
+
+export const lightboxMovePrevious = () => ({
+  type: LIGHTBOX_MOVE_PREVIOUS,
 });
 
 export const loadCart = () => ({

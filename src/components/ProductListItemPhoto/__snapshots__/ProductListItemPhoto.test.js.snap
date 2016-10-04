@@ -1,0 +1,6 @@
+exports[`ProductListItemPhoto renders correctly 1`] = `
+<div
+  className="product-list-item-photo">
+  Your Component Here :)
+</div>
+`;
