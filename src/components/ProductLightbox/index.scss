@@ -2,7 +2,6 @@
 
 .product-lightbox {
 
-
   @media screen and (max-width: $mq-tablet) {
 
   }
@@ -10,4 +9,9 @@
   @media screen and (max-width: $mq-mobile) {
 
   }
+}
+
+.ril-inner img {
+  max-width: 1000px !important;
+  height: auto !important;
 }

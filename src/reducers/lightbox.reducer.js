@@ -68,14 +68,22 @@ export const currentImageSelector = createSelector(
 
 export const nextImageSelector = createSelector(
   [imageUrls, currentIndex],
-  (imageUrls, currentIndex) => (
-    imageUrls[(currentIndex + 1) % imageUrls.length]
-  )
+  (imageUrls, currentIndex) => {
+    if (imageUrls.length < 2) {
+      return null;
+    }
+
+    return imageUrls[(currentIndex + 1)];
+  }
 );
 
 export const previousImageSelector = createSelector(
   [imageUrls, currentIndex],
-  (imageUrls, currentIndex) => (
-    imageUrls[(currentIndex - 1) % imageUrls.length]
-  )
+  (imageUrls, currentIndex) => {
+    if (imageUrls.length < 2) {
+      return null;
+    }
+
+    return imageUrls[(currentIndex - 1)];
+  }
 );
