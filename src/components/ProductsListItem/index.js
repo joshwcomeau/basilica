@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import { lightboxOpen, addToCartRequest } from '../../actions';
+import shopifyProductPropTypes from '../../prop-types/shopify-product';
 
 import AddToCartButton from '../AddToCartButton';
 import ProductListItemPhoto from '../ProductListItemPhoto';
@@ -113,22 +114,7 @@ class ProductsListItem extends PureComponent {
 
 ProductsListItem.propTypes = {
   id: PropTypes.string,
-  product: PropTypes.shape({
-    available: PropTypes.bool.isRequired,
-    body_html: PropTypes.string.isRequired,
-    product_id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    images: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-    })),
-    variants: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      available: PropTypes.bool.isRequired,
-      title: PropTypes.string.isRequired, // This is actually the 'year'
-      price: PropTypes.string.isRequired,
-      formatted_price: PropTypes.string.isRequired,
-    })).isRequired,
-  }).isRequired,
+  product: shopifyProductPropTypes.isRequired,
   lightboxOpen: PropTypes.func,
   addToCartRequest: PropTypes.func,
 };
