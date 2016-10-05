@@ -52,7 +52,7 @@
     "redux-vcr.replay": "^0.1.14",
     "redux-vcr.retrieve": "^0.1.14",
     "reselect": "^2.5.4",
-    "shopify-buy": "^0.3.0"
+    "shopify-buy": "0.3.0"
   },
   "devDependencies": {
     "autoprefixer": "6.4.1",
