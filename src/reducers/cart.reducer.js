@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 
 import {
   ADD_TO_CART_SUCCESS,
+  UPDATE_CART_QUANTITY_SUCCESS,
   TOGGLE_CART,
 } from '../actions';
 
@@ -20,10 +21,26 @@ function isOpenReducer(state = initialState.isOpen, action) {
 }
 
 function itemsReducer(state = initialState.items, action) {
-  const { type, items } = action;
+  switch (action.type) {
+    case ADD_TO_CART_SUCCESS: return [...state, ...action.items];
 
-  switch (type) {
-    case ADD_TO_CART_SUCCESS: return [...state, ...items];
+    case UPDATE_CART_QUANTITY_SUCCESS: {
+      const itemIndex = state.findIndex(item => (
+        item.cartLineId === action.cartLineId
+      ));
+
+      const newItem = {
+        ...state[itemIndex],
+        quantity: action.quantity,
+      };
+
+      return [
+        ...state.slice(0, itemIndex),
+        newItem,
+        ...state.slice(itemIndex + 1),
+      ];
+    }
+
     default: return state;
   }
 }

@@ -14,12 +14,14 @@ import {
   MAP_MOVE,
   MAP_CLICK_FINISH,
   MAP_ZOOM_FINISH,
+  UPDATE_CART_QUANTITY_REQUEST,
   addToCartSuccess,
   addToCartFailure,
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
   setProductsWithinProximity,
+  updateCartQuantitySuccess,
 } from '../actions';
 
 
@@ -41,6 +43,7 @@ function* initializeShopify() {
   const items = cart.attrs.line_items.map(item => ({
     variantId: item.variant_id,
     productId: item.image.product_id,
+    cartLineId: item['shopify-buy-uuid'],
     quantity: item.quantity,
   }));
 
@@ -91,7 +94,9 @@ function* loadProductsWithinMap({ neBound, swBound }) {
   yield put(setProductsWithinProximity({ ids: productIds }));
 }
 
+
 function* addToCart({ product, variantId, quantity }) {
+  console.log('Adding to cart', quantity);
   const variantObject = product.variants.find(variant => (
     variant.id === variantId
   ));
@@ -112,10 +117,16 @@ function* addToCart({ product, variantId, quantity }) {
       quantity,
     });
 
+    const lineItems = cart.attrs.line_items;
+    const newestLineItem = lineItems[lineItems.length - 1];
+    const cartLineId = newestLineItem['shopify-buy-uuid'];
+
     yield put(addToCartSuccess({
       addition: {
         productId: product.product_id,
         variantId,
+        cartLineId,
+        quantity,
       },
     }));
   } catch (error) {
@@ -123,11 +134,35 @@ function* addToCart({ product, variantId, quantity }) {
   }
 }
 
+
+function* updateQuantity(action) {
+  const { cartLineId, quantity } = action;
+
+  // Immediately pass this item onto the store so that we can optimistically
+  // update.
+  yield put(updateCartQuantitySuccess(action));
+
+  // If the value is an empty string, don't send this news to Shopify.
+  // It likely means the user is erasing the current value, to substitute
+  // a new one momentarily.
+  if (quantity === '') {
+    return;
+  }
+
+  const cart = yield call(getCart);
+  cart.updateLineItem(cartLineId, quantity);
+}
+
+
 function* checkout() {
   const cart = yield call(getCart);
   const { checkoutUrl } = cart;
 }
 
+
+// ///////////////////
+// WATCHERS /////////
+// /////////////////
 function* watchInitialize() {
   // No need to take multiple, since initialize should only be
   // called once.
@@ -149,10 +184,18 @@ function* watchAddToCart() {
   );
 }
 
+function* watchUpdateQuantity() {
+  yield* takeEvery(
+    UPDATE_CART_QUANTITY_REQUEST,
+    updateQuantity
+  );
+}
+
 export default function* () {
   yield [
     fork(watchInitialize),
     fork(watchMap),
     fork(watchAddToCart),
+    fork(watchUpdateQuantity),
   ];
 }

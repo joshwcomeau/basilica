@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import pluralize from 'pluralize';
 
-import { toggleCart } from '../../actions';
+import { toggleCart, updateCartQuantityRequest } from '../../actions';
 import cartItemsSelector from '../../selectors/cart-items.selector';
 import cartPriceSelector from '../../selectors/cart-price.selector';
 import shopifyProductPropTypes from '../../prop-types/shopify-product';
@@ -15,7 +15,13 @@ import Icon from '../Icon';
 import './index.scss';
 
 
-const Cart = ({ cartItems, cartPrice, isOpen, toggleCart }) => {
+const Cart = ({
+  cartItems,
+  cartPrice,
+  isOpen,
+  toggleCart,
+  updateCartQuantityRequest,
+}) => {
   const containerClasses = classNames([
     'cart-container',
     { 'is-visible': isOpen },
@@ -47,6 +53,7 @@ const Cart = ({ cartItems, cartPrice, isOpen, toggleCart }) => {
           {cartItems.map(item =>
             <CartItem
               item={item}
+              updateCartQuantity={updateCartQuantityRequest}
               key={`${item.product_id}-${item.variant.id}`}
             />
           )}
@@ -71,6 +78,7 @@ Cart.propTypes = {
   cartPrice: PropTypes.string,
   isOpen: PropTypes.bool,
   toggleCart: PropTypes.func.isRequired,
+  updateCartQuantityRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -82,4 +90,5 @@ const mapStateToProps = state => ({
 export { Cart as CartUnconnected };
 export default connect(mapStateToProps, {
   toggleCart,
+  updateCartQuantityRequest,
 })(Cart);

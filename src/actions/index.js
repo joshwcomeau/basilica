@@ -21,6 +21,9 @@ export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
 export const SET_PRODUCTS_WITHIN_PROXIMITY = 'SET_PRODUCTS_WITHIN_PROXIMITY';
 export const TOGGLE_CART = 'TOGGLE_CART';
+export const UPDATE_CART_QUANTITY_REQUEST = 'UPDATE_CART_QUANTITY_REQUEST';
+export const UPDATE_CART_QUANTITY_SUCCESS = 'UPDATE_CART_QUANTITY_SUCCESS';
+export const UPDATE_CART_QUANTITY_FAILURE = 'UPDATE_CART_QUANTITY_FAILURE';
 
 
 export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
@@ -135,4 +138,21 @@ export const setProductsWithinProximity = ({ ids }) => ({
 
 export const toggleCart = () => ({
   type: TOGGLE_CART,
+});
+
+export const updateCartQuantityRequest = ({ cartLineId, quantity }) => ({
+  type: UPDATE_CART_QUANTITY_REQUEST,
+  cartLineId,
+  quantity,
+});
+
+export const updateCartQuantitySuccess = ({ cartLineId, quantity }) => ({
+  type: UPDATE_CART_QUANTITY_SUCCESS,
+  cartLineId,
+  quantity,
+});
+
+export const updateCartQuantityFailure = ({ error }) => ({
+  type: UPDATE_CART_QUANTITY_FAILURE,
+  error,
 });
