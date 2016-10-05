@@ -23,15 +23,39 @@ import {
 } from '../actions';
 
 
-// eslint-disable-next-line import/prefer-default-export
-function* initializeShopify() {
-  yield call(getCart);
+function* fetchProducts({ productIds }) {
+  try {
+    const newProducts = yield call(getProductsById, productIds);
 
-  // TODO: If a previously-persisted cart was retrieved, update the redux
-  // store with the cart items.
+    yield put(fetchProductsSuccess({ products: newProducts }));
+  } catch (error) {
+    yield put(fetchProductsFailure({ error }));
+    return; // TODO: Can you use returns to short-circuit generators?
+  }
 }
 
-function* findAndFetchProducts({ neBound, swBound }) {
+
+function* initializeShopify() {
+  const cart = yield call(getCart);
+
+  const items = cart.attrs.line_items.map(item => ({
+    variantId: item.variant_id,
+    productId: item.image.product_id,
+    quantity: item.quantity,
+  }));
+
+  if (items.length > 0) {
+    // We first need to fetch all the items currently in our cart from
+    // Shopify, since we need their info for display purposes.
+    const productIds = items.map(item => item.productId);
+    yield call(fetchProducts, { productIds });
+
+    yield put(addToCartSuccess({ items }));
+  }
+}
+
+
+function* loadProductsWithinMap({ neBound, swBound }) {
   const city = yield select(state => state.city);
   const allProductIdsInCity = planCoordinates[city];
 
@@ -52,22 +76,15 @@ function* findAndFetchProducts({ neBound, swBound }) {
   // Figure out which products we actually have to load.
   const productsById = yield select(state => state.products.byId);
 
-  const productIdsToLoad = productIds.filter(productId => (
+  const productIdsToFetch = productIds.filter(productId => (
     typeof productsById[productId] === 'undefined'
   ));
 
-  if (productIdsToLoad.length > 0) {
+  if (productIdsToFetch.length > 0) {
     // Dispatch our 'request' action, so we can show a loading indicator.
     yield put(fetchProductsRequest());
 
-    try {
-      const newProducts = yield call(getProductsById, productIdsToLoad);
-
-      yield put(fetchProductsSuccess({ products: newProducts }));
-    } catch (error) {
-      yield put(fetchProductsFailure({ error }));
-      return; // TODO: Can you use returns to short-circuit generators?
-    }
+    yield call(fetchProducts, { productIds: productIdsToFetch });
   }
 
   // If we successfully retrieved the product, set it as selected.
@@ -119,7 +136,7 @@ function* watchInitialize() {
 function* watchMap() {
   yield* takeLatest(
     [MAP_MOVE, MAP_CLICK_FINISH, MAP_ZOOM_FINISH],
-    findAndFetchProducts
+    loadProductsWithinMap
   );
 }
 

@@ -20,10 +20,10 @@ function isOpenReducer(state = initialState.isOpen, action) {
 }
 
 function itemsReducer(state = initialState.items, action) {
-  const { type, ...item } = action;
+  const { type, items } = action;
 
   switch (type) {
-    case ADD_TO_CART_SUCCESS: return [...state, item];
+    case ADD_TO_CART_SUCCESS: return [...state, ...items];
     default: return state;
   }
 }

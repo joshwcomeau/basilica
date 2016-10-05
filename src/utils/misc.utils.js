@@ -124,3 +124,12 @@ export const updatedWithinPath = curry((obj1, obj2, path) => (
 export const capitalize = str => (
   str.charAt(0).toUpperCase() + str.slice(1)
 );
+
+/** stripHTMLFromText
+  Remove all HTML tags from a string
+*/
+export const stripHTMLFromText = str => {
+  const tempNode = document.createElement('div');
+  tempNode.innerHTML = str;
+  return tempNode.textContent || tempNode.innerText || '';
+};

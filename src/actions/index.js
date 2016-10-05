@@ -30,14 +30,11 @@ export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
   quantity,
 });
 
-export const toggleCart = () => ({
-  type: TOGGLE_CART,
-});
-
-export const addToCartSuccess = ({ productId, variantId }) => ({
+export const addToCartSuccess = ({ items }) => ({
+  // `items` can either be an array of items, or a single item.
+  // Each item is of the shape { variantId, productId }
   type: ADD_TO_CART_SUCCESS,
-  productId,
-  variantId,
+  items: Array.isArray(items) ? items : [items],
 });
 
 export const addToCartFailure = ({ error }) => ({
@@ -134,4 +131,8 @@ export const mapZoomFinish = map => ({
 export const setProductsWithinProximity = ({ ids }) => ({
   type: SET_PRODUCTS_WITHIN_PROXIMITY,
   ids,
+});
+
+export const toggleCart = () => ({
+  type: TOGGLE_CART,
 });
