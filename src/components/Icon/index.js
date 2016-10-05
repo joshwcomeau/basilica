@@ -27,6 +27,8 @@ Icon.propTypes = {
   size: PropTypes.number,
 };
 
-Icon.defaultProps = {};
+Icon.defaultProps = {
+  size: 24,
+};
 
 export default Icon;

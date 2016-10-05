@@ -1,0 +1,58 @@
+@import '../../variables';
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.input-container {
+  display: flex;
+
+  label {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $grey;
+  }
+
+  .input {
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .input-decorator-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .input-decorator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: $lightgrey;
+    transform: scaleY(0.3333);
+    transform-origin: bottom center;
+    transition: 300ms;
+  }
+
+  .input:focus + .input-decorator {
+    transform: scaleY(1);
+    background: $blue;
+    transition: 300ms;
+  }
+
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}

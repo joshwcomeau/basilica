@@ -43,7 +43,10 @@ class Home extends Component {
 
     return (
       <div className="home">
-        { showCart && <Cart />}
+        <Cart
+          isVisible={showCart}
+          onClickClose={toggleCart}
+        />
         <Hero />
 
         {/*

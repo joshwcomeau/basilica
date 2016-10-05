@@ -1,0 +1,49 @@
+@import '../../variables';
+
+.cart-item {
+  display: flex;
+  padding: 25px 0;
+  border-bottom: 1px solid $lightgrey;
+
+  .cart-item-photo-container {
+    flex: 3;
+
+    .cart-item-photo {
+      height: 120px;
+      background-size: 350%;
+      background-position: bottom right;
+      box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    }
+  }
+
+  .cart-item-contents {
+    flex: 6;
+    padding-left: 25px;
+
+    h4 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-family: 'officina';
+      font-size: 12px;
+      font-weight: 100;
+      line-height: 1.3em;
+      margin-bottom: 12px;
+    }
+
+    .input {
+      width: 30px;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}
