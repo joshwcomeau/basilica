@@ -30,11 +30,11 @@ export const addToCartRequest = ({ product, variantId, quantity = 1 }) => ({
   quantity,
 });
 
-export const addToCartSuccess = ({ items }) => ({
-  // `items` can either be an array of items, or a single item.
+export const addToCartSuccess = ({ addition }) => ({
+  // `addition` can either be an array of items, or a single item.
   // Each item is of the shape { variantId, productId }
   type: ADD_TO_CART_SUCCESS,
-  items: Array.isArray(items) ? items : [items],
+  items: Array.isArray(addition) ? addition : [addition],
 });
 
 export const addToCartFailure = ({ error }) => ({

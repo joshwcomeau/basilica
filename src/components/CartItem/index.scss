@@ -22,7 +22,13 @@
 
     h4 {
       font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    h6 {
+      font-size: 15px;
       margin-bottom: 12px;
+      color: $grey;
     }
 
     p {
@@ -36,6 +42,32 @@
     .input {
       width: 30px;
       text-align: center;
+    }
+
+    .quantity-input {
+      margin-bottom: 10px;
+    }
+
+    .cart-item-price {
+      margin-right: 10px;
+    }
+
+    .cart-item-remove {
+      border: 0;
+      background: transparent;
+      text-transform: uppercase;
+      outline: none;
+      color: $grey;
+      cursor: pointer;
+
+      .icon {
+        margin-left: 4px;
+      }
+
+      svg {
+        fill: $grey;
+        vertical-align: bottom;
+      }
     }
   }
 

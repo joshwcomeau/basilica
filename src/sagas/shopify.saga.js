@@ -50,7 +50,7 @@ function* initializeShopify() {
     const productIds = items.map(item => item.productId);
     yield call(fetchProducts, { productIds });
 
-    yield put(addToCartSuccess({ items }));
+    yield put(addToCartSuccess({ addition: items }));
   }
 }
 
@@ -113,8 +113,10 @@ function* addToCart({ product, variantId, quantity }) {
     });
 
     yield put(addToCartSuccess({
-      productId: product.product_id,
-      variantId,
+      addition: {
+        productId: product.product_id,
+        variantId,
+      },
     }));
   } catch (error) {
     yield put(addToCartFailure({ error }));

@@ -2,17 +2,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import pluralize from 'pluralize';
 
 import { toggleCart } from '../../actions';
 import cartItemsSelector from '../../selectors/cart-items.selector';
+import cartPriceSelector from '../../selectors/cart-price.selector';
 import shopifyProductPropTypes from '../../prop-types/shopify-product';
 
-import Icon from '../Icon';
+import Button from '../Button';
 import CartItem from '../CartItem';
+import Icon from '../Icon';
 import './index.scss';
 
 
-const Cart = ({ cartItems, isOpen, toggleCart }) => {
+const Cart = ({ cartItems, cartPrice, isOpen, toggleCart }) => {
   const classes = classNames(['cart', { 'is-visible': isOpen }]);
 
   return (
@@ -23,7 +26,9 @@ const Cart = ({ cartItems, isOpen, toggleCart }) => {
 
       <h2 className="cart-title">
         Your Cart
-        <span className="item-count">2 Items</span>
+        <span className="item-count">
+          {pluralize('Item', cartItems.length, true)}
+        </span>
       </h2>
 
       <div className="cart-contents">
@@ -34,18 +39,28 @@ const Cart = ({ cartItems, isOpen, toggleCart }) => {
           />
         )}
       </div>
+
+      <div className="cart-checkout">
+        <span className="cart-price">
+          <span className="cart-price-label">Total</span>
+          {cartPrice}
+        </span>
+        <Button theme="dark">Proceed to Checkout</Button>
+      </div>
     </div>
   );
 };
 
 Cart.propTypes = {
   cartItems: PropTypes.arrayOf(shopifyProductPropTypes),
+  cartPrice: PropTypes.string,
   isOpen: PropTypes.bool,
   toggleCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   cartItems: cartItemsSelector(state),
+  cartPrice: cartPriceSelector(state),
   isOpen: state.cart.isOpen,
 });
 

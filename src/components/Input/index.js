@@ -8,20 +8,32 @@ import './index.scss';
 const Input = ({ className, label, name, type, value, onChange }) => {
   const classes = classNames(['input-container', className]);
 
+  let input;
+  if (type === 'fixed') {
+    // This is actually not an input at all, just a bit of static text.
+    // It's useful, though, for maintaining consistency between regular
+    // inputs and "prefilled", unchangeable fields.
+    input = <span className="input-fixed">{value}</span>;
+  } else {
+    input = (
+      <input
+        className="input"
+        name={name}
+        id={name}
+        type={type}
+        onChange={onChange}
+        value={value}
+      />
+    );
+  }
+
   return (
     <span className={classes}>
       <label htmlFor={name}>
         {label}
 
         <span className="input-decorator-wrapper">
-          <input
-            className="input"
-            name={name}
-            id={name}
-            type={type}
-            onChange={onChange}
-            value={value}
-          />
+          {input}
           <div className="input-decorator" />
         </span>
       </label>
@@ -33,7 +45,7 @@ Input.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'number']),
+  type: PropTypes.oneOf(['text', 'number', 'fixed']),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 };
