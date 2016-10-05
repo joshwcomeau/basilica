@@ -1,8 +1,22 @@
 @import '../../variables';
 
-.cart {
+.cart-container {
   position: fixed;
   z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+
+  &.is-visible {
+    pointer-events: all;
+  }
+}
+
+.cart {
+  position: absolute;
+  z-index: 2;
   top: 0;
   bottom: 0;
   right: 0;
@@ -25,6 +39,7 @@
     top: 50px;
     right: 50px;
     cursor: pointer;
+    outline: none;
 
     svg {
       fill: $black;
@@ -66,5 +81,27 @@
   @media screen and (max-width: $mq-mobile) {
     left: 0;
     width: 100%;
+  }
+}
+
+.cart-backdrop {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: rgba(0,0,0,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1000ms;
+
+  &.is-visible {
+    pointer-events: all;
+    opacity: 1;
+    transition: opacity 600ms;
   }
 }

@@ -16,37 +16,52 @@ import './index.scss';
 
 
 const Cart = ({ cartItems, cartPrice, isOpen, toggleCart }) => {
-  const classes = classNames(['cart', { 'is-visible': isOpen }]);
+  const containerClasses = classNames([
+    'cart-container',
+    { 'is-visible': isOpen },
+  ]);
+  const cartClasses = classNames([
+    'cart',
+    { 'is-visible': isOpen },
+  ]);
+  const backdropClasses = classNames([
+    'cart-backdrop',
+    { 'is-visible': isOpen },
+  ]);
 
   return (
-    <div className={classes}>
-      <button className="close-cart" onClick={toggleCart}>
-        <Icon value="close" />
-      </button>
+    <div className={containerClasses}>
+      <div className={cartClasses}>
+        <button className="close-cart" onClick={toggleCart}>
+          <Icon value="close" />
+        </button>
 
-      <h2 className="cart-title">
-        Your Cart
-        <span className="item-count">
-          {pluralize('Item', cartItems.length, true)}
-        </span>
-      </h2>
+        <h2 className="cart-title">
+          Your Cart
+          <span className="item-count">
+            {pluralize('Item', cartItems.length, true)}
+          </span>
+        </h2>
 
-      <div className="cart-contents">
-        {cartItems.map(item =>
-          <CartItem
-            item={item}
-            key={`${item.product_id}-${item.variant.id}`}
-          />
-        )}
+        <div className="cart-contents">
+          {cartItems.map(item =>
+            <CartItem
+              item={item}
+              key={`${item.product_id}-${item.variant.id}`}
+            />
+          )}
+        </div>
+
+        <div className="cart-checkout">
+          <span className="cart-price">
+            <span className="cart-price-label">Total</span>
+            {cartPrice}
+          </span>
+          <Button theme="dark">Proceed to Checkout</Button>
+        </div>
       </div>
 
-      <div className="cart-checkout">
-        <span className="cart-price">
-          <span className="cart-price-label">Total</span>
-          {cartPrice}
-        </span>
-        <Button theme="dark">Proceed to Checkout</Button>
-      </div>
+      <button className={backdropClasses} onClick={toggleCart} />
     </div>
   );
 };
