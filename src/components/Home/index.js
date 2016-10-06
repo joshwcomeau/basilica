@@ -33,6 +33,7 @@ class Home extends Component {
       centerCoords,
       markerCoords,
       showCart,
+      numOfCartItems,
       mapMove,
       mapClickStart,
       mapClickFinish,
@@ -54,7 +55,10 @@ class Home extends Component {
           We want the Contents to float above the Hero image, but the backdrop
           should slide under it.
         */}
-        <HeaderContents toggleCart={toggleCart} />
+        <HeaderContents
+          numOfCartItems={numOfCartItems}
+          toggleCart={toggleCart}
+        />
         <HeaderBackdrop />
 
         <Editorial />
@@ -89,6 +93,7 @@ Home.propTypes = {
     lng: PropTypes.number.isRequired,
   }),
   showCart: PropTypes.bool,
+  numOfCartItems: PropTypes.number,
   initializeShopify: PropTypes.func,
   mapClickStart: PropTypes.func,
   mapClickFinish: PropTypes.func,
@@ -104,6 +109,7 @@ const mapStateToProps = state => ({
   centerCoords: state.map.center,
   markerCoords: state.map.marker,
   showCart: state.cart.isOpen,
+  numOfCartItems: state.cart.items.length,
 });
 
 export { Home };

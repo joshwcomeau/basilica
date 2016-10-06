@@ -3,13 +3,16 @@ import { createSelector } from 'reselect';
 
 import {
   ADD_TO_CART_SUCCESS,
+  REMOVE_CART_ITEM_SUCCESS,
   UPDATE_CART_QUANTITY_SUCCESS,
+  UPDATE_CART_QUANTITY_FAILURE,
   TOGGLE_CART,
 } from '../actions';
 
 const initialState = {
   isOpen: false,
   items: [],
+  error: null,
 };
 
 
@@ -23,6 +26,17 @@ function isOpenReducer(state = initialState.isOpen, action) {
 function itemsReducer(state = initialState.items, action) {
   switch (action.type) {
     case ADD_TO_CART_SUCCESS: return [...state, ...action.items];
+
+    case REMOVE_CART_ITEM_SUCCESS: {
+      const itemIndex = state.findIndex(item => (
+        item.cartLineId === action.cartLineId
+      ));
+
+      return [
+        ...state.slice(0, itemIndex),
+        ...state.slice(itemIndex + 1),
+      ];
+    }
 
     case UPDATE_CART_QUANTITY_SUCCESS: {
       const itemIndex = state.findIndex(item => (
@@ -45,9 +59,18 @@ function itemsReducer(state = initialState.items, action) {
   }
 }
 
+function errorReducer(state = initialState.error, action) {
+  switch (action.type) {
+    case UPDATE_CART_QUANTITY_SUCCESS: return null;
+    case UPDATE_CART_QUANTITY_FAILURE: return action.error;
+    default: return state;
+  }
+}
+
 export default combineReducers({
   isOpen: isOpenReducer,
   items: itemsReducer,
+  error: errorReducer,
 });
 
 
@@ -57,5 +80,15 @@ export default combineReducers({
 const items = state => state.cart.items;
 
 export const isEmptySelector = createSelector(
-  items, (items) => items.length === 0
+  items,
+  items => items.length === 0
+);
+
+export const includedProductsSelector = createSelector(
+  items,
+  items => items.reduce((products, item) => {
+    // eslint-disable-next-line no-param-reassign
+    products[item.productId] = true;
+    return products;
+  }, {})
 );

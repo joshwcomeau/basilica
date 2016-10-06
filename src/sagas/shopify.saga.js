@@ -14,14 +14,18 @@ import {
   MAP_MOVE,
   MAP_CLICK_FINISH,
   MAP_ZOOM_FINISH,
+  REMOVE_CART_ITEM_REQUEST,
   UPDATE_CART_QUANTITY_REQUEST,
   addToCartSuccess,
   addToCartFailure,
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
+  removeCartItemSuccess,
+  removeCartItemFailure,
   setProductsWithinProximity,
   updateCartQuantitySuccess,
+  updateCartQuantityFailure,
 } from '../actions';
 
 
@@ -96,7 +100,6 @@ function* loadProductsWithinMap({ neBound, swBound }) {
 
 
 function* addToCart({ product, variantId, quantity }) {
-  console.log('Adding to cart', quantity);
   const variantObject = product.variants.find(variant => (
     variant.id === variantId
   ));
@@ -136,21 +139,47 @@ function* addToCart({ product, variantId, quantity }) {
 
 
 function* updateQuantity(action) {
-  const { cartLineId, quantity } = action;
+  const { cartLineId } = action;
+  const { quantity } = action;
+
+  // Don't allow anything besides positive numbers more than 0,
+  // and empty space.
+  const isANumber = !isNaN(quantity);
+  const isPositive = quantity > 0;
+  const isBlank = quantity === '';
+  const isValid = isBlank || isANumber && isPositive;
+
+  if (!isValid) {
+    yield put(updateCartQuantityFailure({
+      error: "Sorry, minimum quantity is 1. If you'd like to remove this item, click 'REMOVE ITEM'.",
+    }));
+    return;
+  }
 
   // Immediately pass this item onto the store so that we can optimistically
   // update.
-  yield put(updateCartQuantitySuccess(action));
+  yield put(updateCartQuantitySuccess({ cartLineId, quantity }));
 
   // If the value is an empty string, don't send this news to Shopify.
   // It likely means the user is erasing the current value, to substitute
   // a new one momentarily.
-  if (quantity === '') {
+  if (isBlank) {
     return;
   }
 
   const cart = yield call(getCart);
   cart.updateLineItem(cartLineId, quantity);
+}
+
+function* removeCartItem(action) {
+  const { cartLineId, quantity } = action;
+
+  // Immediately pass this item onto the store so that we can optimistically
+  // update.
+  yield put(removeCartItemSuccess(action));
+
+  const cart = yield call(getCart);
+  cart.removeLineItem(cartLineId, quantity);
 }
 
 
@@ -191,11 +220,19 @@ function* watchUpdateQuantity() {
   );
 }
 
+function* watchRemoveCartItem() {
+  yield* takeEvery(
+    REMOVE_CART_ITEM_REQUEST,
+    removeCartItem
+  );
+}
+
 export default function* () {
   yield [
     fork(watchInitialize),
     fork(watchMap),
     fork(watchAddToCart),
     fork(watchUpdateQuantity),
+    fork(watchRemoveCartItem),
   ];
 }

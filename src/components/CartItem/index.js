@@ -26,9 +26,8 @@ class CartItem extends Component {
   }
 
   removeItem() {
-    this.props.updateCartQuantity({
+    this.props.removeCartItem({
       cartLineId: this.props.item.cartLineId,
-      quantity: 0,
     });
   }
 
@@ -42,8 +41,6 @@ class CartItem extends Component {
       summary,
     } = item;
     const classes = classNames(['cart-item']);
-
-    console.log('Renderign with quantity', quantity);
 
     return (
       <div className={classes}>
@@ -65,6 +62,8 @@ class CartItem extends Component {
             name={`quantity-${variant.id}`}
             value={quantity}
             onChange={this.updateQuantity}
+            min={1}
+            max={100}
           />
 
           <span className="cart-item-action-row">
@@ -82,7 +81,8 @@ class CartItem extends Component {
 
 CartItem.propTypes = {
   item: shopifyProductPropTypes,
-  updateCartQuantity: PropTypes.func,
+  removeCartItem: PropTypes.func.isRequired,
+  updateCartQuantity: PropTypes.func.isRequired,
 };
 
 CartItem.defaultProps = {

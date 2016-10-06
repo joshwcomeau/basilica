@@ -15,9 +15,13 @@ export default createSelector(
         variant.id === variantId
       ));
 
-      return total + parseFloat(variant.price);
+      const quantity = cartItem.quantity === '' ? 1 : cartItem.quantity;
+
+      return total + parseFloat(variant.price) * quantity;
     }, 0);
 
-    return unformattedTotal ? unformattedTotal.toFixed(2) : null;
+    return typeof unformattedTotal === 'number'
+      ? unformattedTotal.toFixed(2)
+      : null;
   }
 );

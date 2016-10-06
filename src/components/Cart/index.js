@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import pluralize from 'pluralize';
 
-import { toggleCart, updateCartQuantityRequest } from '../../actions';
+import {
+  toggleCart,
+  updateCartQuantityRequest,
+  removeCartItemRequest,
+} from '../../actions';
 import cartItemsSelector from '../../selectors/cart-items.selector';
 import cartPriceSelector from '../../selectors/cart-price.selector';
 import shopifyProductPropTypes from '../../prop-types/shopify-product';
@@ -19,7 +23,9 @@ const Cart = ({
   cartItems,
   cartPrice,
   isOpen,
+  cartError,
   toggleCart,
+  removeCartItemRequest,
   updateCartQuantityRequest,
 }) => {
   const containerClasses = classNames([
@@ -34,6 +40,10 @@ const Cart = ({
     'cart-backdrop',
     { 'is-visible': isOpen },
   ]);
+
+  const errorMessage = cartError && (
+    <div className="cart-error-message">{cartError}</div>
+  );
 
   return (
     <div className={containerClasses}>
@@ -54,10 +64,13 @@ const Cart = ({
             <CartItem
               item={item}
               updateCartQuantity={updateCartQuantityRequest}
+              removeCartItem={removeCartItemRequest}
               key={`${item.product_id}-${item.variant.id}`}
             />
           )}
         </div>
+
+        {errorMessage}
 
         <div className="cart-checkout">
           <span className="cart-price">
@@ -77,7 +90,9 @@ Cart.propTypes = {
   cartItems: PropTypes.arrayOf(shopifyProductPropTypes),
   cartPrice: PropTypes.string,
   isOpen: PropTypes.bool,
+  cartError: PropTypes.string,
   toggleCart: PropTypes.func.isRequired,
+  removeCartItemRequest: PropTypes.func.isRequired,
   updateCartQuantityRequest: PropTypes.func.isRequired,
 };
 
@@ -85,10 +100,12 @@ const mapStateToProps = state => ({
   cartItems: cartItemsSelector(state),
   cartPrice: cartPriceSelector(state),
   isOpen: state.cart.isOpen,
+  cartError: state.cart.error,
 });
 
 export { Cart as CartUnconnected };
 export default connect(mapStateToProps, {
   toggleCart,
+  removeCartItemRequest,
   updateCartQuantityRequest,
 })(Cart);

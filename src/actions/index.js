@@ -19,6 +19,9 @@ export const MAP_CLICK_FINISH = 'MAP_CLICK_FINISH';
 export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
+export const REMOVE_CART_ITEM_REQUEST = 'REMOVE_CART_ITEM_REQUEST';
+export const REMOVE_CART_ITEM_SUCCESS = 'REMOVE_CART_ITEM_SUCCESS';
+export const REMOVE_CART_ITEM_FAILURE = 'REMOVE_CART_ITEM_FAILURE';
 export const SET_PRODUCTS_WITHIN_PROXIMITY = 'SET_PRODUCTS_WITHIN_PROXIMITY';
 export const TOGGLE_CART = 'TOGGLE_CART';
 export const UPDATE_CART_QUANTITY_REQUEST = 'UPDATE_CART_QUANTITY_REQUEST';
@@ -129,6 +132,21 @@ export const mapZoomFinish = map => ({
   zoom: map.getZoom(),
   neBound: map.getBounds()._ne,
   swBound: map.getBounds()._sw,
+});
+
+export const removeCartItemRequest = ({ cartLineId }) => ({
+  type: REMOVE_CART_ITEM_REQUEST,
+  cartLineId,
+});
+
+export const removeCartItemSuccess = ({ cartLineId }) => ({
+  type: REMOVE_CART_ITEM_SUCCESS,
+  cartLineId,
+});
+
+export const removeCartItemFailure = ({ error }) => ({
+  type: REMOVE_CART_ITEM_FAILURE,
+  error,
 });
 
 export const setProductsWithinProximity = ({ ids }) => ({

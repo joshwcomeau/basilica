@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './index.scss';
 
 
-const Input = ({ className, label, name, type, value, onChange }) => {
+const Input = ({ className, label, name, type, value, min, max, onChange }) => {
   const classes = classNames(['input-container', className]);
 
   let input;
@@ -22,6 +22,8 @@ const Input = ({ className, label, name, type, value, onChange }) => {
         id={name}
         type={type}
         onChange={onChange}
+        min={min}
+        max={max}
         value={value}
       />
     );
@@ -47,6 +49,8 @@ Input.propTypes = {
   name: PropTypes.string,
   type: PropTypes.oneOf(['text', 'number', 'fixed']),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  min: PropTypes.number,
+  max: PropTypes.number,
   onChange: PropTypes.func,
 };
 
