@@ -42,6 +42,15 @@ $medium: 55px;
     }
   }
 
+  &.primary {
+    color: $white;
+    background: $primary;
+
+    svg {
+      fill: $white;
+    }
+  }
+
   &.small {
     height: $small;
 
@@ -56,7 +65,8 @@ $medium: 55px;
     .icon { width: 20px; height: 20px; }
   }
 
-  &.with-inner-border.dark .icon-square {
+  &.with-inner-border.dark .icon-square,
+  &.with-inner-border.primary .icon-square {
     border-right: 1px solid rgba(255,255,255,0.3);
   }
   &.with-inner-border.light .icon-square {

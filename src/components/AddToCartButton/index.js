@@ -36,7 +36,4 @@ AddToCartButton.propTypes = {
   onClick: PropTypes.func,
 };
 
-AddToCartButton.defaultProps = {
-};
-
 export default AddToCartButton;

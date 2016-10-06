@@ -43,7 +43,7 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  theme: PropTypes.oneOf(['light', 'dark']),
+  theme: PropTypes.oneOf(['light', 'dark', 'primary']),
   icon: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   disabled: PropTypes.bool,

@@ -84,11 +84,18 @@ export const isEmptySelector = createSelector(
   items => items.length === 0
 );
 
-export const includedProductsSelector = createSelector(
+// Create an object that lets us know quickly whether a given product variant
+// is in the cart. The keys are all productIds, and the values are the variant(s)
+// that are in the cart.
+export const includedVariantsSelector = createSelector(
   items,
   items => items.reduce((products, item) => {
-    // eslint-disable-next-line no-param-reassign
-    products[item.productId] = true;
+    if (typeof products[item.productId] === 'undefined') {
+      // eslint-disable-next-line no-param-reassign
+      products[item.productId] = [];
+    }
+
+    products[item.productId].push(item.variantId);
     return products;
   }, {})
 );
