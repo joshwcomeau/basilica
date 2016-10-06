@@ -7,13 +7,17 @@ import Icon from '../Icon';
 import './index.scss';
 
 
-const HeaderContents = ({ toggleCart }) => {
+const HeaderContents = ({ toggleCart, numOfCartItems }) => {
   const classes = classNames(['header-contents']);
+
+  const badge = numOfCartItems > 0 && (
+    <Badge className="cart-badge">{numOfCartItems}</Badge>
+  );
 
   return (
     <div className={classes}>
       <button className="cart-button" onClick={toggleCart}>
-        <Badge className="cart-badge">2</Badge>
+        {badge}
         <span className="cart-text">CART</span>
         <Icon value="shopping_cart" size={16} />
       </button>
@@ -22,6 +26,7 @@ const HeaderContents = ({ toggleCart }) => {
 };
 
 HeaderContents.propTypes = {
+  numOfCartItems: PropTypes.number,
   toggleCart: PropTypes.func,
 };
 
