@@ -49,7 +49,7 @@ input::-webkit-inner-spin-button {
 
   .input:focus + .input-decorator {
     transform: scaleY(1);
-    background: $blue;
+    background: $primary;
     transition: 300ms;
   }
 
