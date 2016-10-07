@@ -2,7 +2,18 @@
 
 .editorial {
   min-height: 1200px;
-  background: #FFF;
+  padding: 150px 0;
+  background: $offwhite;
+
+  .editorial-image-spotlight {
+    max-width: 500px;
+    float: left;
+    margin-right: 50px;
+  }
+
+  h2 {
+    font-size: 56px;
+  }
 
   @media screen and (max-width: $mq-tablet) {
 
