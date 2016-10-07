@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
+import logo from '../../images/logo.svg';
 import './index.scss';
 
 
@@ -9,9 +10,7 @@ const Logo = () => {
   const classes = classNames(['logo']);
 
   return (
-    <h2 className={classes}>
-      Basilica
-    </h2>
+    <div className={classes} dangerouslySetInnerHTML={{ __html: logo }} />
   );
 };
 

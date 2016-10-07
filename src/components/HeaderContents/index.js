@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Badge from '../Badge';
 import Icon from '../Icon';
+import InnerWrapper from '../InnerWrapper';
 import './index.scss';
 
 
@@ -16,11 +17,13 @@ const HeaderContents = ({ toggleCart, numOfCartItems }) => {
 
   return (
     <div className={classes}>
-      <button className="cart-button" onClick={toggleCart}>
-        {badge}
-        <span className="cart-text">CART</span>
-        <Icon value="shopping_cart" size={16} />
-      </button>
+      <InnerWrapper>
+        <button className="cart-button" onClick={toggleCart}>
+          {badge}
+          <span className="cart-text">CART</span>
+          <Icon value="shopping_cart" size={16} />
+        </button>
+      </InnerWrapper>
     </div>
   );
 };

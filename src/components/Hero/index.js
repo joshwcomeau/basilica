@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Stick from '../Stick';
 import Logo from '../Logo';
+import InnerWrapper from '../InnerWrapper';
 import './index.scss';
 import defaultBackgroundImage from '../../images/placeholder-home-hero.jpeg';
 
@@ -17,7 +18,9 @@ const Hero = ({ children, backgroundImage }) => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <Stick className="sticky-logo">
-        <Logo />
+        <InnerWrapper>
+          <Logo />
+        </InnerWrapper>
       </Stick>
 
       {children}
