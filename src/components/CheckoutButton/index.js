@@ -18,7 +18,7 @@ const CheckoutButton = ({ onClick }) => {
       withInnerBorder
       onClick={onClick}
     >
-      Checkout
+      Proceed to Checkout
     </Button>
   );
 };

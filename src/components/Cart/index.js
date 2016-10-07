@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import pluralize from 'pluralize';
 
 import {
+  checkout,
   toggleCart,
   updateCartQuantityRequest,
   removeCartItemRequest,
@@ -24,6 +25,7 @@ const Cart = ({
   cartPrice,
   isOpen,
   cartError,
+  checkout,
   toggleCart,
   removeCartItemRequest,
   updateCartQuantityRequest,
@@ -77,7 +79,7 @@ const Cart = ({
             <span className="cart-price-label">Total</span>
             {cartPrice}
           </span>
-          <Button theme="dark">Proceed to Checkout</Button>
+          <Button theme="dark" onClick={checkout}>Proceed to Checkout</Button>
         </div>
       </div>
 
@@ -91,6 +93,7 @@ Cart.propTypes = {
   cartPrice: PropTypes.string,
   isOpen: PropTypes.bool,
   cartError: PropTypes.string,
+  checkout: PropTypes.func.isRequired,
   toggleCart: PropTypes.func.isRequired,
   removeCartItemRequest: PropTypes.func.isRequired,
   updateCartQuantityRequest: PropTypes.func.isRequired,
@@ -105,6 +108,7 @@ const mapStateToProps = state => ({
 
 export { Cart as CartUnconnected };
 export default connect(mapStateToProps, {
+  checkout,
   toggleCart,
   removeCartItemRequest,
   updateCartQuantityRequest,

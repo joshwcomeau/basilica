@@ -4,7 +4,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { lightboxOpen, addToCartRequest, checkoutRequest } from '../../actions';
+import { lightboxOpen, addToCartRequest, checkout } from '../../actions';
 import { includedVariantsSelector } from '../../reducers/cart.reducer';
 import shopifyProductPropTypes from '../../prop-types/shopify-product';
 
@@ -59,7 +59,7 @@ class ProductsListItem extends PureComponent {
   render() {
     const classes = classNames(['products-list-item']);
 
-    const { product, variantsInCart } = this.props;
+    const { product, variantsInCart, checkout } = this.props;
     const {
       product_id,
       available,
@@ -95,7 +95,7 @@ class ProductsListItem extends PureComponent {
     if (isVariantInCart) {
       button = (
         <CheckoutButton
-          onClick={this.checkout}
+          onClick={checkout}
         />
       );
     } else {
@@ -144,7 +144,7 @@ ProductsListItem.propTypes = {
   variantsInCart: PropTypes.object,
   lightboxOpen: PropTypes.func,
   addToCartRequest: PropTypes.func,
-  checkoutRequest: PropTypes.func,
+  checkout: PropTypes.func,
 };
 
 ProductsListItem.defaultProps = {
@@ -157,7 +157,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default connect(mapStateToProps, {
+  checkout,
   lightboxOpen,
   addToCartRequest,
-  checkoutRequest,
 })(ProductsListItem);

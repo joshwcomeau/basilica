@@ -4,6 +4,7 @@ export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
 export const CHANGE_CITY = 'CHANGE_CITY';
 export const CHANGE_PRODUCT_FILTER = 'CHANGE_PRODUCT_FILTER';
+export const CHECKOUT = 'CHECKOUT';
 export const FETCH_CART_FAILURE = 'FETCH_CART_FAILURE';
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
@@ -56,6 +57,10 @@ export const changeCity = ({ city }) => ({
 export const changeProductFilter = filter => ({
   type: CHANGE_PRODUCT_FILTER,
   filter,
+});
+
+export const checkout = () => ({
+  type: CHECKOUT,
 });
 
 export const fetchCartFailure = ({ error }) => ({

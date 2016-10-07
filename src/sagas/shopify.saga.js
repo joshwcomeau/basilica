@@ -10,6 +10,7 @@ import { findPointsWithinMap } from '../utils/geo.utils';
 import planCoordinates from '../data/plan-coordinates';
 import {
   ADD_TO_CART_REQUEST,
+  CHECKOUT,
   INITIALIZE_SHOPIFY,
   MAP_MOVE,
   MAP_CLICK_FINISH,
@@ -186,6 +187,8 @@ function* removeCartItem(action) {
 function* checkout() {
   const cart = yield call(getCart);
   const { checkoutUrl } = cart;
+
+  window.location = checkoutUrl;
 }
 
 
@@ -227,6 +230,13 @@ function* watchRemoveCartItem() {
   );
 }
 
+function* watchCheckout() {
+  yield* takeLatest(
+    CHECKOUT,
+    checkout
+  );
+}
+
 export default function* () {
   yield [
     fork(watchInitialize),
@@ -234,5 +244,6 @@ export default function* () {
     fork(watchAddToCart),
     fork(watchUpdateQuantity),
     fork(watchRemoveCartItem),
+    fork(watchCheckout),
   ];
 }
