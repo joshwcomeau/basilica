@@ -9,6 +9,7 @@ import closeupOratoireSaintJoseph from '../../images/closeup-oratoire-saint-jose
 import closeupParcSaintPaul from '../../images/closeup-parc-saint-paul.jpg';
 import { lightboxOpen } from '../../actions';
 
+import Heading from '../Heading';
 import EditorialPhoto from '../EditorialPhoto';
 import InnerWrapper from '../InnerWrapper';
 import './index.scss';
@@ -20,7 +21,10 @@ const Editorial = ({ lightboxOpen }) => {
   return (
     <div className={classes}>
       <InnerWrapper size="narrow" className="intro">
-        <h2>Authentic urban plans</h2>
+        <Heading useParallaxEffect>
+          Authentic urban plans
+        </Heading>
+
         <p>In September 2016, we procured a set of rare archival documents from the City of Montréal. These large documents are 4 feet long, and were used for decades—from the 60s through to the 90s—to help develop new policies and regulations. It is impossible to say how different the city would look today if not for these documents.</p>
 
         <p>In the days of Google Maps and Google Earth, it can be hard to appreciate the value of these pieces. Planners have written in precise detail about each lot, painstakingly capturing a city in a set of 1:1000-scale documents.</p>

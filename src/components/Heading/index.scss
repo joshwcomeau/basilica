@@ -1,0 +1,29 @@
+@import '../../variables';
+
+.heading {
+  position: relative;
+  line-height: 125px;
+
+  h2 {
+    position: relative;
+    font-size: 56px;
+    z-index: 2;
+  }
+
+  .effect-heading {
+    color: $white;
+    font-size: 224px;
+    position: absolute;
+    z-index: 1;
+    top: -20px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+
+  }
+}
