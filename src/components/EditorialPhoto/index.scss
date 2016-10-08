@@ -1,0 +1,73 @@
+@import '../../variables';
+
+.editorial-photo {
+  position: relative;
+
+  &.left {
+    float: left;
+    margin-right: 50px;
+  }
+  &.right {
+    float: right;
+    margin-left: 50px;
+  }
+
+  .image-and-shadow {
+    position: relative;
+  }
+
+  &.with-shadow {
+    img {
+      transform: translateZ(0);
+      transition: 500ms;
+    }
+    .editorial-photo-shadow {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      bottom: -11%;
+      opacity: 0.4;
+      transform: scaleY(0.5);
+      transform-origin: center center;
+      transition: 500ms;
+    }
+
+    &:hover {
+      .editorial-photo-shadow {
+        transform: scaleY(1.25);
+        opacity: 0.2;
+        transition: 300ms;
+      }
+      img {
+        transform: translateY(-10px) translateZ(0);
+        transition: 300ms;
+      }
+    }
+  }
+
+  img {
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .caption {
+    font-family: 'officina';
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 1.3;
+    text-align: center;
+    margin: 10px;
+  }
+
+
+  @media screen and (max-width: $mq-tablet) {
+
+  }
+
+  @media screen and (max-width: $mq-mobile) {
+    &.left {
+      float: none;
+    }
+  }
+}

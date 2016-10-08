@@ -5,14 +5,35 @@
   padding: 150px 0;
   background: $offwhite;
 
-  .editorial-image-spotlight {
-    max-width: 500px;
-    float: left;
-    margin-right: 50px;
+  .intro {
+    max-width: 900px;
+    margin: 0 auto;
+
+    p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
   }
 
   h2 {
     font-size: 56px;
+  }
+
+  .photo-row {
+    display: flex;
+    margin-top: 50px;
+
+    .editorial-photo {
+      margin: 0 12px;
+
+      &:first-of-type {
+        margin: 0 24px 0 0;
+      }
+
+      &:last-of-type {
+        margin: 0 0 0 24px;
+      }
+    }
   }
 
   @media screen and (max-width: $mq-tablet) {

@@ -8,6 +8,7 @@ import configureStore from './store';
 
 // eslint-disable-next-line import/no-named-as-default
 import Home from './components/Home';
+import PhotoLightbox from './components/PhotoLightbox';
 import DevTools from './components/DevTools';
 
 
@@ -23,6 +24,7 @@ render(
       <div>
         <Match exactly pattern="/" component={Home} />
         <DevTools />
+        <PhotoLightbox />
       </div>
     </Router>
   </Provider>,

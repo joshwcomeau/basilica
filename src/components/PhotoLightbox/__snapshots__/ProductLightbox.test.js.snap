@@ -1,0 +1,6 @@
+exports[`PhotoLightbox renders correctly 1`] = `
+<div
+  className="product-lightbox">
+  Your Component Here :)
+</div>
+`;
