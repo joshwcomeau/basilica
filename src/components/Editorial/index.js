@@ -19,18 +19,18 @@ const Editorial = ({ lightboxOpen }) => {
 
   return (
     <div className={classes}>
+      <InnerWrapper size="narrow" className="intro">
+        <h2>Authentic urban plans</h2>
+        <p>In September 2016, we procured a set of rare archival documents from the City of Montréal. These large documents are 4 feet long, and were used for decades—from the 60s through to the 90s—to help develop new policies and regulations. It is impossible to say how different the city would look today if not for these documents.</p>
+
+        <p>In the days of Google Maps and Google Earth, it can be hard to appreciate the value of these pieces. Planners have written in precise detail about each lot, painstakingly capturing a city in a set of 1:1000-scale documents.</p>
+
+        <p>These plans were never meant to be hung on a wall. They are pieces of history, and the pencil marks, rough edges, and occasional pieces of worn tape are testament to their years in service.</p>
+
+        <p>They offer an incredible glimpse into the Montréal of the past.</p>
+      </InnerWrapper>
+
       <InnerWrapper>
-        <div className="intro">
-          <h2>Authentic urban plans</h2>
-          <p>In September 2016, we procured a set of rare archival documents from the City of Montréal. These large documents are 4 feet long, and were used for decades—from the 60s through to the 90s—to help develop new policies and regulations. It is impossible to say how different the city would look today if not for these documents.</p>
-
-          <p>In the days of Google Maps and Google Earth, it can be hard to appreciate the value of these pieces. Planners have written in precise detail about each lot, painstakingly capturing a city in a set of 1:1000-scale documents.</p>
-
-          <p>These plans were never meant to be hung on a wall. They are pieces of history, and the pencil marks, rough edges, and occasional pieces of worn tape are testament to their years in service.</p>
-
-          <p>They offer an incredible glimpse into the Montréal of the past.</p>
-        </div>
-
         <div className="photo-row">
           <EditorialPhoto
             src={closeupLacAuxCastors}

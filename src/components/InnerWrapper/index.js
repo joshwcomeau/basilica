@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import './index.scss';
 
 
-const InnerWrapper = ({ children, ...delegated }) => {
-  const classes = classNames(['inner-wrapper', delegated.className]);
+const InnerWrapper = ({ children, size, ...delegated }) => {
+  const classes = classNames(['inner-wrapper', size, delegated.className]);
 
   return (
     <div {...delegated} className={classes}>
@@ -19,9 +19,11 @@ const InnerWrapper = ({ children, ...delegated }) => {
 
 InnerWrapper.propTypes = {
   children: PropTypes.node,
+  size: PropTypes.oneOf(['regular', 'narrow']),
 };
 
 InnerWrapper.defaultProps = {
+  size: 'regular',
 };
 
 export default InnerWrapper;

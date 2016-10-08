@@ -5,11 +5,17 @@
   display: flex;
   justify-content: center;
 
+  &.regular .inner-wrapper-contents {
+    max-width: $max-width-inner;
+  }
+
+  &.narrow .inner-wrapper-contents {
+    max-width: $max-width-inner-narrow;
+  }
 
   .inner-wrapper-contents {
     position: relative;
     width: 100%;
-    max-width: $max-width-inner;
     margin-left: 40px;
     margin-right: 40px;
   }
