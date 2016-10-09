@@ -41,7 +41,8 @@ export const addToRafThrottle = (fn, event) => {
 };
 
 export const removeFromRafThrottle = (fn, event) => {
-
+  const fnIndex = callbacks[event].indexOf(fn);
+  callbacks[event].splice(fnIndex, 1);
 };
 
 export const bindToWindow = (initialCallbacks = {}) => {
