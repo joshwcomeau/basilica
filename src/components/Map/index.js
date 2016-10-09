@@ -1,16 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import ReactMapboxGl, {
-  Layer,
-  Feature,
-} from 'react-mapbox-gl';
+import ReactMapboxGl from 'react-mapbox-gl';
 import debounce from 'lodash.debounce';
+
+import { accessToken } from '../../data/mapbox-config.json';
+import style from '../../data/mapbox-style-light.json';
 
 import Button from '../Button';
 import InnerWrapper from '../InnerWrapper';
-import { accessToken } from '../../data/mapbox-config.json';
-import style from '../../data/mapbox-style-light.json';
+import MapMarker from '../MapMarker';
 import './index.scss';
 
 
@@ -72,12 +71,11 @@ class Map extends Component {
     // component itself.
     const centerCoordsArray = [centerCoords.lng, centerCoords.lat];
 
-    const markerCoordsArray = markerCoords && [
-      markerCoords.lng,
-      markerCoords.lat,
-    ];
+    const markers = markerCoords.map(marker => (
+      <MapMarker key={marker.label} {...marker} />
+    ));
 
-    const marker = markerCoords && <Feature coordinates={markerCoordsArray} />;
+    console.log(markers);
 
     return (
       <div className={classes}>
@@ -113,14 +111,7 @@ class Map extends Component {
           attributionPosition="top-right"
           onStyleLoad={map => this.map = map}
         >
-          <Layer
-            type="symbol"
-            id="marker"
-            layout={{ 'icon-image': 'map-pin-default' }}
-            paint={{ 'icon-color': '#FF0000' }}
-          >
-            {markerCoords && marker}
-          </Layer>
+          {markers}
         </ReactMapboxGl>
       </div>
     );
@@ -132,10 +123,11 @@ Map.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }).isRequired,
-  markerCoords: PropTypes.shape({
+  markerCoords: PropTypes.arrayOf(PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
-  }),
+    label: PropTypes.string,
+  })),
   zoom: PropTypes.number.isRequired,
   minZoom: PropTypes.number.isRequired,
   maxZoom: PropTypes.number.isRequired,
@@ -153,9 +145,6 @@ Map.defaultProps = {
     lat: 45.503634,
     lng: -73.610406,
   },
-  zoom: 8,
-  minZoom: 8,
-  maxZoom: 20,
   scrollZoom: false,
   bearing: 0,
   mapMove() {},

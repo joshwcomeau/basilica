@@ -10,6 +10,7 @@ import {
   mapZoomFinish,
   toggleCart,
 } from '../../actions';
+import mapboxCitySettings from '../../data/mapbox-city-settings';
 
 import Cart from '../Cart';
 import Hero from '../Hero';
@@ -19,7 +20,6 @@ import Editorial from '../Editorial';
 import Map from '../Map';
 import ProductsList from '../ProductsList';
 import './index.scss';
-import mapboxCitySettings from '../../data/mapbox-city-settings';
 
 class Home extends Component {
   componentWillMount() {
@@ -88,10 +88,11 @@ Home.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }),
-  markerCoords: PropTypes.shape({
+  markerCoords: PropTypes.arrayOf(PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
-  }),
+    label: PropTypes.string,
+  })),
   showCart: PropTypes.bool,
   numOfCartItems: PropTypes.number,
   initializeShopify: PropTypes.func,
@@ -107,7 +108,7 @@ const mapStateToProps = state => ({
   city: state.city,
   zoom: state.map.zoom,
   centerCoords: state.map.center,
-  markerCoords: state.map.marker,
+  markerCoords: state.map.markers,
   showCart: state.cart.isOpen,
   numOfCartItems: state.cart.items.length,
 });

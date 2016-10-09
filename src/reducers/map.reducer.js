@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 
 import { getDefaultCity } from '../utils/geo.utils';
 import mapboxCitySettings from '../data/mapbox-city-settings';
+import neighbourhoodPoints from '../data/neighbourhood-points';
+
 import {
+  CHANGE_CITY,
   MAP_CLICK_START,
   MAP_MOVE,
   MAP_ZOOM_START,
@@ -11,15 +14,15 @@ import {
 
 const defaultCity = getDefaultCity();
 const initialState = {
-  marker: null,
+  markers: neighbourhoodPoints[defaultCity],
   center: mapboxCitySettings[defaultCity].centerCoords,
   zoom: mapboxCitySettings[defaultCity].zoom,
 };
 
-function markerReducer(state = initialState.marker, action) {
+function markersReducer(state = initialState.markers, action) {
   switch (action.type) {
-    case MAP_CLICK_START:
-      return { lat: action.lat, lng: action.lng };
+    case CHANGE_CITY:
+      return neighbourhoodPoints[action.city];
     default: return state;
   }
 }
@@ -51,7 +54,7 @@ function centerReducer(state = initialState.center, action) {
 }
 
 export default combineReducers({
-  marker: markerReducer,
+  markers: markersReducer,
   zoom: zoomReducer,
   center: centerReducer,
 });
