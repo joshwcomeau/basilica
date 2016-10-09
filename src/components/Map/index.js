@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import ReactMapboxGl from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import debounce from 'lodash.debounce';
 
 import { accessToken } from '../../data/mapbox-config.json';
@@ -9,7 +9,7 @@ import style from '../../data/mapbox-style-light.json';
 
 import Button from '../Button';
 import InnerWrapper from '../InnerWrapper';
-import MapMarker from '../MapMarker';
+import MapMarkerLabel from '../MapMarkerLabel';
 import './index.scss';
 
 
@@ -71,11 +71,14 @@ class Map extends Component {
     // component itself.
     const centerCoordsArray = [centerCoords.lng, centerCoords.lat];
 
-    const markers = markerCoords.map(marker => (
-      <MapMarker key={marker.label} {...marker} />
-    ));
+    const pins = [];
+    const labels = [];
 
-    console.log(markers);
+    markerCoords.forEach(marker => {
+      const { lat, lng, label } = marker;
+      pins.push(<Feature key={label} coordinates={[lng, lat]} />);
+      labels.push(<MapMarkerLabel key={label} {...marker} />);
+    });
 
     return (
       <div className={classes}>
@@ -111,7 +114,20 @@ class Map extends Component {
           attributionPosition="top-right"
           onStyleLoad={map => this.map = map}
         >
-          {markers}
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{
+              'icon-image': 'map-pin-default',
+              'icon-size': 0.65,
+              'icon-offset': [0, 44 * -0.65],
+            }}
+            paint={{ }}
+          >
+            {pins}
+          </Layer>
+
+          {labels}
         </ReactMapboxGl>
       </div>
     );

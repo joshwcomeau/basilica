@@ -2,35 +2,33 @@
 import React, { Component, PropTypes } from 'react';
 import { Marker } from 'react-mapbox-gl';
 
-import pin from '../../images/map-pin-default.png';
 import './index.scss';
 
 
-const MapMarker = ({ lat, lng, label }) => {
+const MapMarkerLabel = ({ lat, lng, label }) => {
   const container = document.createElement('div');
-  container.classList.add('map-marker-wrapper');
+  container.classList.add('map-marker-label-wrapper');
 
   return (
     <Marker
       container={container}
       coordinates={[lng, lat]}
     >
-      <div className="map-marker">
-        <img src={pin} alt="neighbourhood location" />
+      <h4 className="map-marker-label">
         {label}
-      </div>
+      </h4>
     </Marker>
   );
 };
 
-MapMarker.propTypes = {
+MapMarkerLabel.propTypes = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
   label: PropTypes.string,
 };
 
-MapMarker.defaultProps = {
+MapMarkerLabel.defaultProps = {
 
 };
 
-export default MapMarker;
+export default MapMarkerLabel;

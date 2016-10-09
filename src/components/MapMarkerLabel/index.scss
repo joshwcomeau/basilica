@@ -1,16 +1,16 @@
 @import '../../variables';
 
 // needed for mapbox to position correctly
-.map-marker-wrapper {
+.map-marker-label-wrapper {
   position: absolute;
   // By default, the top of the marker is set to the coordinate location.
   // Since we're using a pin, we want the bottom to align instead.
   // transform: translateY(-44px);
-  top: -50px;
-  transition: transform 500ms;
+  top: -35px;
+  left: 22px;
 }
 
-.map-marker {
+.map-marker-label {
   position: relative;
   font-family: 'gotham';
   font-weight: bold;
@@ -18,18 +18,4 @@
   text-transform: uppercase;
   color: $grey;
   font-size: 16px;
-
-  img {
-    height: 44px;
-    vertical-align: middle;
-    margin-right: 10px;
-  }
-
-  @media screen and (max-width: $mq-tablet) {
-
-  }
-
-  @media screen and (max-width: $mq-mobile) {
-
-  }
 }
