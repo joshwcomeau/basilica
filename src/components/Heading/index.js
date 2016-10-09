@@ -29,18 +29,16 @@ class Heading extends Component {
   handleScroll() {
     // We want to figure out where within the viewport the effectHeading
     // is.
+    const { parallaxStart, parallaxEnd } = this.props;
+
     const viewportHeight = window.innerHeight;
     const elementOffset = this.elem.getBoundingClientRect().top;
 
     const progress = 1 - (elementOffset / viewportHeight);
 
-    const startPosition = -175;
-    const endPosition = -25;
     const currentPosition = Math.round(
-      startPosition + (endPosition - startPosition) * progress
+      parallaxStart + (parallaxEnd - parallaxStart) * progress
     );
-
-    console.log(currentPosition);
 
     this.elem.style.transform = `translateX(${currentPosition}px)`;
   }
@@ -68,10 +66,14 @@ class Heading extends Component {
 Heading.propTypes = {
   children: PropTypes.string,
   useParallaxEffect: PropTypes.bool,
+  parallaxStart: PropTypes.number,
+  parallaxEnd: PropTypes.number,
 };
 
 Heading.defaultProps = {
   useParallaxEffect: false,
+  parallaxStart: -275,
+  parallaxEnd: -125,
 };
 
 export default Heading;
