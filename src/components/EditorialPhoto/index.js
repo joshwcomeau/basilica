@@ -68,13 +68,19 @@ const EditorialPhoto = ({
 
   return (
     <div className={classes} style={containerStyles}>
-      <div
+      <a
+        href={src}
+        target="_blank"
+        rel="noopener noreferrer"
         className="image-and-shadow"
-        onClick={() => onClick({ urls: [src] })}
+        onClick={ev => {
+          ev.preventDefault();
+          onClick({ urls: [src] });
+        }}
       >
         <img src={src} role="presentation" />
         {shadow}
-      </div>
+      </a>
       <div className="caption">{caption}</div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';

@@ -4,16 +4,13 @@
   min-height: 1200px;
   padding: 150px 0;
   background: $offwhite;
+  overflow: hidden;
 
   .intro {
     p {
       font-size: 20px;
       margin-bottom: 30px;
     }
-  }
-
-  h2 {
-    font-size: 56px;
   }
 
   .photo-row {
