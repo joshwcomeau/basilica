@@ -4,9 +4,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import closeupLacAuxCastors from '../../images/closeup-lac-aux-castors.jpg';
-import closeupOratoireSaintJoseph from '../../images/closeup-oratoire-saint-joseph.jpg';
-import closeupParcSaintPaul from '../../images/closeup-parc-saint-paul.jpg';
+import closeupLacAuxCastors from '../../images/closeup-lac-aux-castors-bw.jpg';
+import closeupOratoireSaintJoseph from '../../images/closeup-oratoire-saint-joseph-bw.jpg';
+import closeupParcSaintPaul from '../../images/closeup-parc-saint-paul-bw.jpg';
 import { lightboxOpen } from '../../actions';
 
 import Heading from '../Heading';
