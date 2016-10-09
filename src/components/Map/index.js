@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import classNames from 'classnames';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Feature } from 'react-mapbox-gl';
 import debounce from 'lodash.debounce';
 
 import { accessToken } from '../../data/mapbox-config.json';
@@ -10,6 +10,7 @@ import style from '../../data/mapbox-style-light.json';
 import Button from '../Button';
 import InnerWrapper from '../InnerWrapper';
 import MapMarkerLabel from '../MapMarkerLabel';
+import MapMarkerLayer from '../MapMarkerLayer';
 import './index.scss';
 
 
@@ -21,6 +22,8 @@ class Map extends Component {
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleZoomIn = this.handleMapZoomChange.bind(this, 'increment');
     this.handleZoomOut = this.handleMapZoomChange.bind(this, 'decrement');
+    this.handleMapHoverStart = this.handleMapHoverStart.bind(this);
+    this.handleMapHoverEnd = this.handleMapHoverEnd.bind(this);
     this.debounceMapZoomFinish = debounce(this.props.mapZoomFinish, 510);
     this.debounceMapClickFinish = debounce(this.props.mapClickFinish, 510);
   }
@@ -49,15 +52,26 @@ class Map extends Component {
     this.debounceMapZoomFinish(this.map);
   }
 
-  handleMapClick(map, event) {
-    this.props.mapClickStart(event.lngLat);
+  handleMapClick(map, coords) {
+    this.props.mapClickStart(coords);
     this.debounceMapClickFinish(this.map);
+  }
+
+  handleMapHoverStart(id) {
+    if (id !== this.props.activeMarkerId) {
+      this.props.markerHoverStart({ id });
+    }
+  }
+
+  handleMapHoverEnd() {
+    this.props.markerHoverFinish();
   }
 
   render() {
     const {
       centerCoords,
       markerCoords,
+      activeMarkerId,
       zoom,
       minZoom,
       maxZoom,
@@ -71,13 +85,33 @@ class Map extends Component {
     // component itself.
     const centerCoordsArray = [centerCoords.lng, centerCoords.lat];
 
+    let activePin = null;
     const pins = [];
     const labels = [];
 
     markerCoords.forEach(marker => {
-      const { lat, lng, label } = marker;
-      pins.push(<Feature key={label} coordinates={[lng, lat]} />);
-      labels.push(<MapMarkerLabel key={label} {...marker} />);
+      const { id, lat, lng } = marker;
+
+      const feature = (
+        <Feature
+          key={id}
+          coordinates={[lng, lat]}
+          onHover={() => this.handleMapHoverStart(id)}
+          onEndHover={this.handleMapHoverEnd}
+          onClick={(map) => this.handleMapClick(map, { lat, lng })}
+        />
+      );
+
+      // If this is the active feature, there are two copies of it;
+      // The blue 'hover-state' one, and the underlying black one.
+      // We only want to fire the click event once, on the blue one.
+      if (id === activeMarkerId) {
+        activePin = cloneElement(feature, { onClick: null });
+      }
+
+      pins.push(feature);
+
+      labels.push(<MapMarkerLabel key={id} {...marker} />);
     });
 
     return (
@@ -109,24 +143,16 @@ class Map extends Component {
           bearing={bearing}
           movingMethod="easeTo"
           accessToken={accessToken}
-          onClick={this.handleMapClick}
           onMoveEnd={this.handleMapMove}
           attributionPosition="top-right"
           onStyleLoad={map => this.map = map}
         >
-          <Layer
-            type="symbol"
-            id="marker"
-            layout={{
-              'icon-image': 'map-pin-default',
-              'icon-size': 0.65,
-              'icon-offset': [0, 44 * -0.65],
-            }}
-            paint={{ }}
-          >
-            {pins}
-          </Layer>
-
+          <MapMarkerLayer>{pins}</MapMarkerLayer>
+          {
+            activePin
+              ? <MapMarkerLayer type="active">{activePin}</MapMarkerLayer>
+              : null
+          }
           {labels}
         </ReactMapboxGl>
       </div>
@@ -144,16 +170,19 @@ Map.propTypes = {
     lng: PropTypes.number.isRequired,
     label: PropTypes.string,
   })),
+  activeMarkerId: PropTypes.string,
   zoom: PropTypes.number.isRequired,
   minZoom: PropTypes.number.isRequired,
   maxZoom: PropTypes.number.isRequired,
   scrollZoom: PropTypes.bool.isRequired,
   bearing: PropTypes.number.isRequired,
-  mapMove: PropTypes.func,
-  mapClickStart: PropTypes.func,
-  mapClickFinish: PropTypes.func,
-  mapZoomStart: PropTypes.func,
-  mapZoomFinish: PropTypes.func,
+  mapMove: PropTypes.func.isRequired,
+  mapClickStart: PropTypes.func.isRequired,
+  mapClickFinish: PropTypes.func.isRequired,
+  mapZoomStart: PropTypes.func.isRequired,
+  mapZoomFinish: PropTypes.func.isRequired,
+  markerHoverStart: PropTypes.func.isRequired,
+  markerHoverFinish: PropTypes.func.isRequired,
 };
 
 Map.defaultProps = {

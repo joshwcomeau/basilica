@@ -8,6 +8,8 @@ import {
   mapClickFinish,
   mapZoomStart,
   mapZoomFinish,
+  markerHoverStart,
+  markerHoverFinish,
   toggleCart,
 } from '../../actions';
 import mapboxCitySettings from '../../data/mapbox-city-settings';
@@ -32,6 +34,7 @@ class Home extends Component {
       zoom,
       centerCoords,
       markerCoords,
+      activeMarkerId,
       showCart,
       numOfCartItems,
       mapMove,
@@ -39,6 +42,8 @@ class Home extends Component {
       mapClickFinish,
       mapZoomStart,
       mapZoomFinish,
+      markerHoverStart,
+      markerHoverFinish,
       toggleCart,
     } = this.props;
 
@@ -68,11 +73,14 @@ class Home extends Component {
           zoom={zoom}
           markerCoords={markerCoords}
           centerCoords={centerCoords}
+          activeMarkerId={activeMarkerId}
           mapClickStart={mapClickStart}
           mapClickFinish={mapClickFinish}
           mapMove={mapMove}
           mapZoomStart={mapZoomStart}
           mapZoomFinish={mapZoomFinish}
+          markerHoverStart={markerHoverStart}
+          markerHoverFinish={markerHoverFinish}
         />
 
         <ProductsList />
@@ -93,15 +101,18 @@ Home.propTypes = {
     lng: PropTypes.number.isRequired,
     label: PropTypes.string,
   })),
+  activeMarkerId: PropTypes.string,
   showCart: PropTypes.bool,
   numOfCartItems: PropTypes.number,
-  initializeShopify: PropTypes.func,
-  mapClickStart: PropTypes.func,
-  mapClickFinish: PropTypes.func,
-  mapMove: PropTypes.func,
-  mapZoomStart: PropTypes.func,
-  mapZoomFinish: PropTypes.func,
-  toggleCart: PropTypes.func,
+  initializeShopify: PropTypes.func.isRequired,
+  mapClickStart: PropTypes.func.isRequired,
+  mapClickFinish: PropTypes.func.isRequired,
+  mapMove: PropTypes.func.isRequired,
+  mapZoomStart: PropTypes.func.isRequired,
+  mapZoomFinish: PropTypes.func.isRequired,
+  markerHoverStart: PropTypes.func.isRequired,
+  markerHoverFinish: PropTypes.func.isRequired,
+  toggleCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -109,6 +120,7 @@ const mapStateToProps = state => ({
   zoom: state.map.zoom,
   centerCoords: state.map.center,
   markerCoords: state.map.markers,
+  activeMarkerId: state.map.activeMarkerId,
   showCart: state.cart.isOpen,
   numOfCartItems: state.cart.items.length,
 });
@@ -123,6 +135,8 @@ export default connect(
     mapMove,
     mapZoomStart,
     mapZoomFinish,
+    markerHoverStart,
+    markerHoverFinish,
     toggleCart,
   }
 )(Home);

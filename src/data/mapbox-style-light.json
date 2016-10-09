@@ -56,10 +56,10 @@
         }
     },
     "center": [
-        -73.60478813216217,
-        45.499724932058285
+        -73.57134067365962,
+        45.51924287907073
     ],
-    "zoom": 14.380524738428104,
+    "zoom": 13.727441410116311,
     "bearing": -50.760614311634356,
     "pitch": 0,
     "sources": {
@@ -7451,55 +7451,11 @@
                 "text-opacity": 0.55,
                 "text-halo-blur": 0
             }
-        },
-        {
-            "id": "place-neighbourhood",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "place_label",
-            "minzoom": 12,
-            "maxzoom": 16,
-            "interactive": true,
-            "filter": [
-                "==",
-                "type",
-                "neighbourhood"
-            ],
-            "layout": {
-                "text-field": "{name_en}",
-                "text-transform": "uppercase",
-                "text-letter-spacing": 0.1,
-                "text-max-width": 7,
-                "text-font": [
-                    "DIN Offc Pro Regular",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 3,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            12,
-                            11
-                        ],
-                        [
-                            16,
-                            16
-                        ]
-                    ]
-                }
-            },
-            "paint": {
-                "text-halo-color": "hsl(0, 0%, 100%)",
-                "text-halo-width": 1,
-                "text-color": "hsl(0, 0%, 62%)",
-                "text-halo-blur": 0
-            }
         }
     ],
     "created": "2016-10-01T20:31:04.047Z",
     "id": "citrnlis3000f2hpdo9vxhelt",
-    "modified": "2016-10-01T20:49:58.656Z",
+    "modified": "2016-10-09T13:24:37.489Z",
     "owner": "joshwcomeau",
     "draft": false
 }

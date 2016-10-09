@@ -20,6 +20,8 @@ export const MAP_CLICK_FINISH = 'MAP_CLICK_FINISH';
 export const MAP_MOVE = 'MAP_MOVE';
 export const MAP_ZOOM_START = 'MAP_ZOOM_START';
 export const MAP_ZOOM_FINISH = 'MAP_ZOOM_FINISH';
+export const MARKER_HOVER_START = 'MARKER_HOVER_START';
+export const MARKER_HOVER_FINISH = 'MARKER_HOVER_FINISH';
 export const REMOVE_CART_ITEM_REQUEST = 'REMOVE_CART_ITEM_REQUEST';
 export const REMOVE_CART_ITEM_SUCCESS = 'REMOVE_CART_ITEM_SUCCESS';
 export const REMOVE_CART_ITEM_FAILURE = 'REMOVE_CART_ITEM_FAILURE';
@@ -137,6 +139,15 @@ export const mapZoomFinish = map => ({
   zoom: map.getZoom(),
   neBound: map.getBounds()._ne,
   swBound: map.getBounds()._sw,
+});
+
+export const markerHoverStart = ({ id }) => ({
+  type: MARKER_HOVER_START,
+  id,
+});
+
+export const markerHoverFinish = () => ({
+  type: MARKER_HOVER_FINISH,
 });
 
 export const removeCartItemRequest = ({ cartLineId }) => ({
